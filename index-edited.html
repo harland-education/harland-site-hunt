@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Harland Site Hunt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F0; --ink: #2a2722; --gold: #9a7b3f; --gold-soft: #c9b487;
+    --line: #e3dccd; --green: #3f7a52; --green-soft: #e4f0e8; --red: #a8442f;
+    --card: #fffdf8; --shadow: 0 1px 3px rgba(42,39,34,.08), 0 4px 16px rgba(42,39,34,.06);
+    --green-deep: #2f5f43;
+    --gold-grad: linear-gradient(135deg,#c19a4e 0%,#8a6d33 100%);
+    --green-grad: linear-gradient(135deg,#4f9268 0%,#2f5f43 100%);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--cream); color: var(--ink); line-height: 1.55; padding: 24px 16px 80px; }
+  .wrap { max-width: 660px; margin: 0 auto; }
+  .display { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+  /* fireworks + toast */
+  #fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+  .toast { position: fixed; left: 50%; top: 32%; transform: translate(-50%,-50%) scale(.8); background: var(--gold-grad);
+    color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600;
+    padding: 14px 34px; border-radius: 14px; box-shadow: var(--shadow); opacity: 0; pointer-events: none; z-index: 60;
+    transition: opacity .22s ease, transform .22s ease; white-space: nowrap; }
+  .toast.show { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+
+  header { text-align: center; margin-bottom: 26px; }
+  .eyebrow { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  h1.display { font-size: 38px; font-weight: 600; line-height: 1.08; letter-spacing: -.01em; color: var(--green-deep); }
+  .sub { color: #6b665d; font-size: 15px; margin-top: 10px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+  .gate { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 26px 24px; box-shadow: var(--shadow); }
+  .gate h2 { font-size: 14px; letter-spacing: .04em; margin-bottom: 4px; }
+  .gate .lead { font-size: 13px; color: #6b665d; margin-bottom: 18px; }
+  .rules { font-size: 13px; color: #6b665d; background: rgba(201,180,135,.1); border-radius: 10px; padding: 14px 16px; margin-bottom: 22px; }
+  .rules b { color: var(--gold); }
+  .rules ul { margin: 6px 0 0 18px; } .rules li { margin-bottom: 5px; }
+  .players { display: grid; gap: 10px; }
+  .pbtn { text-align: left; background: #fff; border: 1px solid var(--line); border-radius: 11px; padding: 14px 16px; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center; transition: border-color .15s, box-shadow .15s, transform .05s; font-family: inherit; color: var(--ink); }
+  .pbtn:hover { border-color: var(--gold-soft); box-shadow: 0 0 0 3px rgba(201,180,135,.18); }
+  .pbtn:active { transform: translateY(1px); }
+  .pbtn .pname { font-weight: 700; font-size: 16px; }
+  .pbtn .prole { font-size: 12px; color: #8a8377; margin-top: 2px; }
+  .pbtn .lang { font-size: 11px; font-weight: 700; letter-spacing: .06em; padding: 4px 10px; border-radius: 20px; background: var(--cream); color: var(--gold); border: 1px solid var(--gold-soft); }
+  .pbtn .lang.zh { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+  .gate-foot { margin-top: 16px; text-align: center; }
+  .gate-foot button { font-size: 12px; padding: 7px 16px; }
+
+  button.ghost { background: transparent; color: var(--gold); border: 1px solid var(--gold-soft); border-radius: 9px; font-family: inherit;
+    font-weight: 600; cursor: pointer; padding: 9px 18px; font-size: 14px; }
+  button.ghost:hover { background: rgba(201,180,135,.12); }
+
+  input[type=text] { width: 100%; padding: 12px 14px; font-size: 16px; font-family: inherit; border: 1px solid var(--line);
+    border-radius: 9px; background: #fff; color: var(--ink); }
+  input[type=text]:focus { outline: none; border-color: var(--gold-soft); box-shadow: 0 0 0 3px rgba(201,180,135,.25); }
+
+  .launch-bar { display: flex; justify-content: center; margin: 0 0 20px; }
+  .launch-bar button { background: linear-gradient(180deg, #b89a55, var(--gold)); color: #fff; border: none; border-radius: 10px;
+    font-family: inherit; font-weight: 700; font-size: 14px; cursor: pointer; padding: 11px 20px; box-shadow: var(--shadow);
+    letter-spacing: .02em; transition: transform .05s, filter .15s; }
+  .launch-bar button:hover { filter: brightness(1.05); } .launch-bar button:active { transform: translateY(1px); }
+
+  .progress-rail { display: flex; align-items: center; gap: 5px; margin: 24px 0 10px; }
+  .pip { flex: 1; height: 6px; border-radius: 3px; background: var(--line); transition: background .3s; }
+  .pip.done { background: var(--gold); } .pip.current { background: var(--gold-soft); } .pip.skip { background: #d8cdb4; }
+  .progress-label { font-size: 12px; color: #8a8377; text-align: center; margin-bottom: 16px; letter-spacing: .03em; }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 25px 24px; box-shadow: var(--shadow); margin-bottom: 18px; }
+  .stop-num { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; display:flex; justify-content:space-between; align-items:center; }
+  .worth { font-size: 11px; color: #8a8377; letter-spacing: .03em; text-transform: none; }
+  .stop-title.display { font-size: 24px; font-weight: 600; margin-bottom: 4px; }
+  .stop-where { font-size: 13px; color: #8a8377; margin-bottom: 16px; }
+  .stop-where a { color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--gold-soft); }
+  .clue { font-size: 16px; margin-bottom: 16px; }
+  .clue strong { color: var(--gold); }
+  .hint-row { margin: -4px 0 14px; }
+  .hint-toggle { font-size: 12px; color: #9a958a; background: none; border: none; padding: 4px 0; cursor: pointer; font-weight: 500; text-decoration: underline; font-family: inherit; }
+  .hint-text { font-size: 13px; color: #8a8377; font-style: italic; margin-top: 6px; padding: 10px 12px; background: rgba(201,180,135,.1); border-radius: 8px; display: none; }
+  .hint-text.show { display: block; }
+  .answer-row { display: flex; gap: 8px; margin-bottom: 8px; }
+  .answer-row input { flex: 1; }
+  .answer-row button { background: var(--gold-grad); color: #fff; border: none; border-radius: 9px; font-family: inherit; font-weight: 600; cursor: pointer; padding: 0 20px; }
+  .answer-row button:active { transform: translateY(1px); }
+  .skip-row { text-align: right; }
+  .skip-btn { font-size: 12px; color: #b3ada1; background: none; border: none; cursor: pointer; font-family: inherit; text-decoration: underline; padding: 2px 0; }
+  .skip-btn:hover { color: #8a8377; }
+  .feedback { font-size: 13px; min-height: 16px; font-weight: 500; }
+  .feedback.wrong { color: var(--red); } .feedback.right { color: var(--green); }
+
+  .goodjob { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--gold); margin-bottom: 8px; }
+  .skip-flag { font-size: 13px; color: #8a8377; margin-bottom: 8px; }
+  .skip-flag b { color: var(--ink); }
+  .takeaway { border-left: 3px solid var(--gold-soft); padding: 10px 14px; background: rgba(201,180,135,.09); border-radius: 0 8px 8px 0; }
+  .takeaway .t-lbl { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .takeaway .t-body { font-size: 14px; color: #5c574e; }
+
+  .solved-card { background: var(--green-soft); border-color: #cfe3d6; }
+  .solved-card.skipped { background: #f6f2e8; border-color: var(--line); }
+  .solved-card .stop-title.display { color: var(--green); }
+  .solved-card.skipped .stop-title.display { color: #8a8377; }
+
+  .cipher-card { background: var(--green-grad); color: var(--cream); border-radius: 14px; padding: 28px 24px; box-shadow: var(--shadow); margin-bottom: 18px; }
+  .cipher-card .stop-title.display { color: var(--gold-soft); font-size: 26px; }
+  .cipher-card .clue { color: #e8e3d8; } .cipher-card .clue strong { color: var(--gold-soft); }
+  .collected { display:flex; flex-wrap:wrap; gap:6px; margin: 14px 0 18px; }
+  .chip { background: rgba(201,180,135,.18); border: 1px solid rgba(201,180,135,.4); color: var(--gold-soft); width: 34px; height: 40px;
+    display:flex; align-items:center; justify-content:center; border-radius:7px; font-size:18px; font-weight:700; font-family:'Cormorant Garamond',serif; }
+  .cipher-card input[type=text] { background: rgba(255,255,255,.07); border-color: rgba(201,180,135,.3); color: var(--cream); }
+
+  /* lightning round */
+  .lr-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 25px 24px; box-shadow: var(--shadow); margin-bottom: 18px; }
+  .lr-head { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; display:flex; justify-content:space-between; }
+  .lr-q { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 600; line-height: 1.25; margin: 6px 0 18px; }
+  .lr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .lr-opt { text-align: left; background: #fff; border: 1px solid var(--line); border-radius: 9px; padding: 11px 12px; font-size: 13px; font-weight: 600;
+    color: var(--ink); cursor: pointer; font-family: inherit; transition: border-color .12s, background .12s; }
+  .lr-opt:hover { border-color: var(--gold-soft); background: rgba(201,180,135,.08); }
+  .lr-opt.correct { background: var(--green-soft); border-color: #9ec7ac; color: var(--green); }
+  .lr-opt.wrong { background: #f7e3de; border-color: #d8a99c; color: var(--red); }
+  .lr-opt:disabled { cursor: default; }
+  .lr-fb { font-size: 13px; font-weight: 600; min-height: 18px; margin-top: 12px; }
+  .lr-fb.right { color: var(--green); } .lr-fb.wrong { color: var(--red); }
+  .lr-done { text-align: center; }
+  .lr-done .score { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 600; color: var(--gold); margin: 6px 0; }
+  .lr-actions { display: flex; gap: 8px; justify-content: center; margin-top: 16px; }
+  .lr-intro { font-size: 14px; color: #6b665d; margin-bottom: 16px; }
+
+  .done-banner { text-align: center; background: var(--gold-grad); color: #fff; border-radius: 14px; padding: 36px 24px; box-shadow: var(--shadow); margin-bottom: 18px; }
+  .done-banner h2.display { font-size: 30px; color: #fff; margin-bottom: 10px; }
+  .done-banner p { font-size: 15px; opacity: .92; }
+
+  .board { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px 22px 14px; box-shadow: var(--shadow); margin-top: 24px; }
+  .board h3 { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .board .board-sub { font-size: 12px; color: #9a958a; margin-bottom: 16px; }
+  .lb-row { display: grid; grid-template-columns: 26px 1fr auto auto; gap: 10px; align-items: center; padding: 9px 0; border-top: 1px solid var(--line); font-size: 14px; }
+  .lb-row:first-of-type { border-top: none; }
+  .lb-rank { font-weight: 700; color: var(--gold); text-align: center; }
+  .lb-name { font-weight: 600; } .lb-name.me { color: var(--gold); }
+  .lb-name .you-tag { font-size: 10px; background: var(--gold-soft); color: #fff; padding: 1px 6px; border-radius: 20px; margin-left: 6px; vertical-align: middle; }
+  .lb-name .flag { font-size: 11px; color: #b3ada1; margin-left: 6px; font-weight: 500; }
+  .lb-meta { font-size: 12px; color: #8a8377; text-align: right; }
+  .lb-score { font-weight: 700; text-align: right; min-width: 32px; }
+  .lb-empty { font-size: 13px; color: #9a958a; padding: 12px 0; text-align: center; }
+  .refresh-row { text-align: center; margin-top: 14px; }
+
+  .scorebar { position: sticky; top: 0; z-index: 10; background: var(--cream); padding: 8px 0 12px; margin: -8px 0 0;
+    display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+  .scorebar .pts { font-weight: 700; color: var(--gold); font-size: 18px; }
+  .scorebar .pts-lbl { font-size: 11px; color: #8a8377; letter-spacing: .08em; text-transform: uppercase; }
+  .note { font-size: 11px; color: #b3ada1; text-align: center; margin-top: 24px; line-height: 1.5; }
+  .err { color: var(--red); font-size: 12px; min-height: 16px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<div id="toast" class="toast"></div>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Harland Education · Internal</div>
+    <h1 class="display">The Harland Site Hunt</h1>
+    <p class="sub">Ten stops across the new site, plus a FAQ lightning round. The point isn't trivia, it's the philosophy and the words we're about to put in front of the world.</p>
+  </header>
+
+  <!-- GATE -->
+  <div id="gate" class="gate">
+    <div class="rules">
+      <strong>How to play</strong>
+      <ul>
+        <li>Each clue points to a fact on a real page. Find it, type it, and the next stop unlocks (with fireworks).</li>
+        <li>Every right answer reveals <b>why that line matters</b> for how we talk about Harland, and earns a <b>letter</b>.</li>
+        <li>Collect all ten letters to crack the <b>final cipher</b>.</li>
+        <li>Clues are <b>3 points</b>; a hint drops it to <b>1</b>. Stuck? You can <b>skip</b> (you'll still see the answer). And don't miss the <b>FAQ Lightning Round</b> for bonus points.</li>
+      </ul>
+    </div>
+    <h2>Who's playing?</h2>
+    <p class="lead">Pick yourself. Ruby plays the Chinese site. Jasmine's hunt is the canonical brand facts. Everyone's on one leaderboard.</p>
+    <div class="players">
+      <button class="pbtn" onclick="choose('glen')">
+        <span><span class="pname">Mr. Glen</span><span class="prole">Head of Competitions &amp; Coaching</span></span>
+        <span class="lang">EN</span>
+      </button>
+      <button class="pbtn" onclick="choose('msm')">
+        <span><span class="pname">Ms. M</span><span class="prole">Head Teacher · English &amp; Early Learners</span></span>
+        <span class="lang">EN</span>
+      </button>
+      <button class="pbtn" onclick="choose('ruby')">
+        <span><span class="pname">Ms. Ruby</span><span class="prole">Admin Manager · plays the Chinese site (中文)</span></span>
+        <span class="lang zh">中文</span>
+      </button>
+      <button class="pbtn" onclick="choose('jasmine')">
+        <span><span class="pname">Jasmine</span><span class="prole">QR · the canonical brand facts</span></span>
+        <span class="lang">EN</span>
+      </button>
+    </div>
+    <div class="err" id="gateErr"></div>
+    <div class="gate-foot">
+      <button class="ghost" id="viewBoardBtn">Just show the leaderboard</button>
+    </div>
+  </div>
+
+  <!-- GAME -->
+  <div id="game" style="display:none;">
+    <div class="scorebar">
+      <div><span class="pts" id="scoreNum">0</span> <span class="pts-lbl">points</span></div>
+      <div style="text-align:right;"><span class="pts-lbl">Player</span><br><strong id="whoami"></strong></div>
+    </div>
+    <div class="launch-bar"><button id="lrBtn" onclick="launchLightning()"></button></div>
+    <div class="progress-rail" id="rail"></div>
+    <div class="progress-label" id="progLabel"></div>
+    <div id="stops"></div>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div id="board" class="board" style="display:none;">
+    <h3>Leaderboard</h3>
+    <div class="board-sub">Everyone on one board, English and Chinese sides together. ⚡ = lightning round, ✦ = cipher cracked. Ties broken by who finished first.</div>
+    <div id="lbRows"></div>
+    <div class="refresh-row"><button class="ghost" id="refreshBtn">Refresh standings</button></div>
+  </div>
+
+  <p class="note">Built for the Harland management team. Progress saves on this device. Same leaderboard for all three of you.</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPA_URL  = "https://takuuqvpyqvomcfmcjoz.supabase.co";
+const SUPA_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRha3V1cXZweXF2b21jZm1jam96Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2ODM2MDYsImV4cCI6MjA5MDI1OTYwNn0.X_9VXsZBO5pKlNtvP5-AL6d5LlSfjNxDSb8NZB9vO7M";
+const supa = (window.supabase && window.supabase.createClient)
+  ? window.supabase.createClient(SUPA_URL, SUPA_ANON)
+  : null;
+
+// ===========================================================================
+// THE HARLAND SITE HUNT v4. Bilingual, philosophy-and-messaging focus.
+// + fireworks, skip/reveal, FAQ Lightning Round mini-game.
+// All answers locked against live crawled EN and ZH copy. Letters spell HARLANDWAY.
+// ===========================================================================
+const EN = "https://harland-official-website.pages.dev";
+const ZH = "https://harland-official-website.pages.dev/zh-hant";
+
+const PLAYERS = {
+  glen: { name: "Mr. Glen", lang: "en", track: "philosophy" },
+  msm:  { name: "Ms. M",    lang: "en", track: "philosophy" },
+  ruby: { name: "Ms. Ruby", lang: "zh", track: "philosophy" },
+  jasmine: { name: "Jasmine", lang: "en", track: "canon" }
+};
+
+const PHIL_STOPS = [
+  { letter:"H",
+    en:{ title:"Eight in Ten", where:"Homepage", path:"/",
+      clue:"Start on the <strong>homepage</strong>. Harland runs no ads and no referral incentives, yet a striking share of new students still arrive the same way. <strong>What fraction of new students come through a parent's referral?</strong> (e.g. \"X in ten.\")",
+      hint:"Headline stat near the top, and the meta description. Two words and a number.",
+      reveal:"Eight in ten", accept:["eightinten","8inten","8in10","eightin10","80percent","80"] },
+    zh:{ title:"十位中有八位", where:"首頁", path:"/",
+      clue:"從<strong>首頁</strong>開始。Harland 不打廣告、不提供推薦獎勵，但新學生中仍有相當高的比例，是透過同一個管道而來。<strong>每十位新學生中，有幾位來自家長之間的口耳相傳？</strong>（請填數字。）",
+      hint:"看首頁上方那句醒目的數據：「十位中有八位」。答案是一個數字。",
+      reveal:"八（十位中有八位）", accept:["8","八","8位","八位"] },
+    takeaway:"Word of mouth is the whole proof. We never lead with marketing claims; we lead with the fact that families send other families. That's the quiet confidence the brand is built on." },
+
+  { letter:"A",
+    en:{ title:"The Pedagogy, Named", where:"Programs → English and Writing", path:"/programs/english-and-writing/",
+      clue:"On the <strong>English and Writing</strong> hub, Harland names its teaching method outright, more than once. Skills grow through the substance students engage with, not isolated drills. <strong>Name the three-word pedagogy.</strong> (Lowercase, as written.)",
+      hint:"\"Why Harland,\" point No. 02. Three words, hyphenated in the middle.",
+      reveal:"content-based learning", accept:["contentbasedlearning"] },
+    zh:{ title:"教學法的名字", where:"課程 → 英文與寫作", path:"/programs/english-and-writing/",
+      clue:"在<strong>英文與寫作</strong>課程頁，Harland 明確點出自己的教學法。能力是透過學生所接觸的內容本身發展出來的，而非孤立的反覆練習。這套教學法在中文網站上稱為什麼？<strong>請填中文名稱。</strong>",
+      hint:"看常見問答區「什麼是內容導向的學習？」。描述以內容為核心的教學。",
+      reveal:"內容導向的學習", accept:["內容導向學習","內容導向的學習","內容導向","以內容為導向的學習"] },
+    takeaway:"Content-based learning (內容導向的學習) is our single most distinctive idea. Students learn English through real subject matter, not vocabulary lists. If a parent remembers one thing about how we teach, it should be this." },
+
+  { letter:"R",
+    en:{ title:"The Curriculum Spine", where:"English and Writing (same hub)", path:"/programs/english-and-writing/",
+      clue:"Same hub. Every Harland program is built on one specific set of academic standards as its backbone, with IB, AP, IELTS and SAT pathways branching off. <strong>Name the standards that form the curriculum spine.</strong>",
+      hint:"\"Why Harland,\" No. 01. A US framework. Think \"Common.\"",
+      reveal:"US Common Core (State Standards)", accept:["uscommoncore","commoncore","uscommoncorestandards","commoncorestandards","uscommoncorestatestandards"] },
+    zh:{ title:"課程的主幹", where:"英文與寫作（同一頁）", path:"/programs/english-and-writing/",
+      clue:"同一頁。Harland 每一套課程，都以一組特定的學術標準作為主幹，再延伸出 IB、AP、IELTS 與 SAT 的路徑。<strong>請說出作為課程主幹的那組標準名稱。</strong>（中英皆可。）",
+      hint:"常見問答提到課程主幹是「美國共同核心州立標準」（US Common Core）。",
+      reveal:"美國共同核心州立標準（US Common Core）", accept:["美國共同核心","共同核心","美國共同核心州立標準","uscommoncore","commoncore"] },
+    takeaway:"US Common Core is the spine under everything. It signals we're not improvising; there's a recognized academic structure beneath the personalization. Structure plus flexibility is the pitch." },
+
+  { letter:"L",
+    en:{ title:"Where Glen's Students Go Further", where:"Programs → Coaching and Competitions", path:"/programs/coaching-and-competitions/",
+      clue:"On <strong>Coaching and Competitions</strong>, one performance competition is named as the primary focus of the Performance and Speaking pathway, and the page notes one of our coaches has served as a judge for it. <strong>Name that competition.</strong>",
+      hint:"Three words, all capitalized: W__ M__ G__. The headline event for performance and speaking.",
+      reveal:"The World Monologue Games", accept:["worldmonologuegames","theworldmonologuegames","wmg"] },
+    zh:{ title:"學生在這裡走得更遠", where:"課程 → 競賽指導", path:"/programs/coaching-and-competitions/",
+      clue:"在<strong>競賽指導</strong>頁，表演與口語競賽路徑以一項表演競賽為主要重心，頁面並提到我們其中一位教練曾擔任該競賽的評審。<strong>請說出這項競賽的名稱。</strong>（英文名稱即可。）",
+      hint:"三個英文字：World Monologue Games。表演與口語競賽的招牌賽事。",
+      reveal:"World Monologue Games（世界獨白大賽）", accept:["worldmonologuegames","theworldmonologuegames","wmg","世界獨白大賽"] },
+    takeaway:"Coaching and Competitions is Mr. Glen's house. The message: our coaches have competed and judged at the level students are aiming for, so they coach from real experience, not theory." },
+
+  { letter:"A",
+    en:{ title:"Substitutes Come From Inside", where:"FAQs (footer → Resources → FAQs)", path:"/faqs/",
+      clue:"On the <strong>FAQs</strong>, Harland is firm about who covers a lesson when a child's primary teacher is unavailable. Substitutes come from one place only, never from outside. <strong>Where do substitute teachers always come from?</strong> (One word is enough: the academy's own name.)",
+      hint:"See \"What happens if my child's teacher is sick or unavailable?\" The answer: always from within Harland's own teaching team.",
+      reveal:"Harland's own teaching team", accept:["harland","harlandsownteachingteam","withinharland","harlandsteachingteam","internalharland","harlandteachingteam","harlandown","ownteachingteam","harlandeducation"] },
+    zh:{ title:"代課老師來自內部", where:"常見問題（頁尾 → 資源 → 常見問題）", path:"/faqs/",
+      clue:"在<strong>常見問題</strong>頁，當孩子的主要老師無法上課時，Harland 對由誰代課的立場很明確：代課老師只來自一個地方，從不對外尋找。<strong>代課老師一律來自哪裡？</strong>（填 Harland 即可。）",
+      hint:"看「如果孩子的老師生病或無法上課怎麼辦？」。答案是：一律來自 Harland 內部的教學團隊。",
+      reveal:"Harland 內部的教學團隊", accept:["harland","harland 內部","harland 內部的教學團隊","harland 自己的師資團隊","內部師資","harland 師資團隊"] },
+    takeaway:"Continuity is a promise. We never patch a gap with an outside tutor. A child only ever sees a Harland subject specialist, even as a substitute. It's why families trust us with years, not weeks." },
+
+  { letter:"N",
+    en:{ title:"Who We Turn Away", where:"FAQs (Admissions section)", path:"/faqs/",
+      clue:"Still on the <strong>FAQs</strong>, Harland is honest that it sometimes declines applicants, and not for academic reasons. A student doesn't need to be advanced to be admitted, but they do need the right disposition. <strong>Name any one of the three qualities the page says a declined student lacks.</strong> (attitude, respectfulness, or maturity.)",
+      hint:"See \"Do you ever decline students?\" The three are attitude, respectfulness, and maturity. Any one works.",
+      reveal:"attitude, respectfulness, or maturity", accept:["attitude","respectfulness","respect","maturity"] },
+    zh:{ title:"我們會婉拒誰", where:"常見問題（入學部分）", path:"/faqs/",
+      clue:"同樣在<strong>常見問題</strong>頁，Harland 坦白說明有時會婉拒申請者，而且不是因為學業程度。學生不需要程度超前才能入學，但需要具備對的特質。<strong>頁面說被婉拒的學生缺少哪三項特質之一？請說出其中一項。</strong>（態度、尊重程度，或成熟度。）",
+      hint:"看「Harland 會婉拒學員嗎？」。三項是態度、尊重程度、成熟度。任一即可。",
+      reveal:"態度、尊重程度，或成熟度", accept:["態度","尊重","尊重程度","成熟","成熟度","respectfulness","attitude","maturity"] },
+    takeaway:"We say no, and we say why. Turning students away on attitude rather than ability tells families this is a serious place that protects the learning environment. Selectivity is part of the value." },
+
+  { letter:"D",
+    en:{ title:"Outgrowing Us", where:"Our Story", path:"/our-story/",
+      clue:"On <strong>Our Story</strong>, the founder describes a teacher who knew a student in Taipei at age nine and still teaches them years later in another city. <strong>Which city is the student in by age thirteen?</strong>",
+      hint:"Section V. The sentence pairs Taipei at nine with this city at thirteen. One of our eight countries.",
+      reveal:"Singapore", accept:["singapore"] },
+    zh:{ title:"孩子超越我們", where:"關於 Harland", path:"/our-story/",
+      clue:"在<strong>關於 Harland</strong>頁，創辦人描述一位老師在台北認識一個九歲的學生，多年後在另一座城市仍持續教導同一位學生（當時十三歲）。<strong>這位學生十三歲時人在哪座城市？</strong>",
+      hint:"看第五節。句子把「台北，九歲」與這座城市「十三歲」並列。是我們服務的八個國家之一。",
+      reveal:"新加坡", accept:["新加坡","singapore"] },
+    takeaway:"Our measure of success is the student who outgrows us. We're explicit that families step down or leave, and that this is the right outcome. We sell independence, not dependency." },
+
+  { letter:"W",
+    en:{ title:"Two Components, One Grade", where:"FAQs (Report Cards & Assessment)", path:"/faqs/",
+      clue:"Back to the <strong>FAQs</strong>, the report card grade has two parts. Eighty percent is the major writing project per unit. The other twenty percent comes from five core attributes scored each lesson. <strong>Name any one of those five attributes.</strong> (Adaptability, Attitude, Diligence, Respectfulness, or Resilience.)",
+      hint:"\"What's evaluated in the report card?\" The five: Adaptability, Attitude, Diligence, Respectfulness, Resilience. Any one.",
+      reveal:"Adaptability, Attitude, Diligence, Respectfulness, or Resilience", accept:["adaptability","attitude","diligence","respectfulness","respect","resilience"] },
+    zh:{ title:"兩個部分，一個成績", where:"常見問題（成績單與學習評量）", path:"/faqs/",
+      clue:"回到<strong>常見問題</strong>頁，成績單的分數由兩部分組成。八成來自每個單元的主要寫作專案，另外兩成來自每堂課評分的五項核心特質。<strong>請說出這五項特質中的任何一項。</strong>（適應力、態度、勤奮、尊重、韌性。）",
+      hint:"看「成績單上評量的是什麼？」。五項：適應力、態度、勤奮、尊重、韌性。任一即可。",
+      reveal:"適應力、態度、勤奮、尊重、韌性", accept:["適應力","態度","勤奮","用功","尊重","韌性","adaptability","attitude","diligence","respectfulness","resilience"] },
+    takeaway:"We grade character, on purpose. Putting 20% on attributes like resilience and respect tells families we care how a child works, not just what they produce. Habits of mind outlast any single essay." },
+
+  { letter:"A",
+    en:{ title:"The 14-Day Promise", where:"Terms (footer → Resources → Terms)", path:"/terms/",
+      clue:"On the <strong>Terms</strong> page, every enrollment is protected by a named guarantee from the first lesson: a refund for any lessons not yet attended within a set window, no reason required. <strong>What is this guarantee called?</strong> (Two words.)",
+      hint:"Policy 17. Two words, the second is a defensive object you'd carry. The \"Harland ______.\"",
+      reveal:"The Harland Shield", accept:["harlandshield","theharlandshield","shield"] },
+    zh:{ title:"十四天的承諾", where:"使用條款（頁尾 → 資源 → 使用條款）", path:"/terms/",
+      clue:"在<strong>使用條款</strong>頁，每一筆報名從第一堂課起都受到一項具名保障：在一定期間內，尚未上過的課程皆可退費，無需任何理由。<strong>這項保障叫什麼名字？</strong>（英文，兩個字。）",
+      hint:"看第 17 條。中文網站上沿用英文名稱「Harland Shield」，亦即十四天退費保障。",
+      reveal:"Harland Shield", accept:["harlandshield","theharlandshield","shield","十四天退費保障"] },
+    takeaway:"The first lesson is where we earn trust. The Harland Shield removes the risk of trying us. It reframes the decision from \"will this work?\" to \"let's find out, on us.\"" },
+
+  { letter:"Y",
+    en:{ title:"Three Ways We Help", where:"FAQs (AP, IB & Test Prep)", path:"/faqs/",
+      clue:"Final stop. On the <strong>FAQs</strong>, Harland is honest that it is not an authorised AP or IB delivery school. Instead it supports AP and IB students in three distinct modes. One is intensive exam prep; one is primary instruction for homeschoolers. <strong>What is the third mode</strong>, the one where Harland deepens and supplements what a student's own school already teaches? (Answer: alongside their ______.)",
+      hint:"\"Do you teach AP and IB courses?\" The modes: alongside the school programme, intensive exam prep, and primary instruction. The answer is the school (programme).",
+      reveal:"Alongside their school programme", accept:["schoolprogramme","schoolprogram","alongsideschool","theirschool","school","alongsidetheirschool","schoolprogrammealongside","alongsidetheschoolprogramme"] },
+    zh:{ title:"我們協助的三種方式", where:"常見問題（AP、IB 與應試準備）", path:"/faqs/",
+      clue:"最後一站。在<strong>常見問題</strong>頁，Harland 坦白說明自己並非經授權的 AP 或 IB 辦學學校，而是以三種不同的方式協助 AP 與 IB 學生。其中一種是密集的考試準備，一種是為自學生提供主要教學。<strong>第三種方式是什麼？</strong>也就是 Harland 深化並補強學生自己學校所教內容的那一種。（答案：在學生的 ______ 之外並行。）",
+      hint:"看「Harland 有教 AP 與 IB 課程嗎？」。三種：搭配學校課程、密集考試準備、主要教學。答案是「學校課程」（或「學校」）。",
+      reveal:"搭配學校課程（在學校課程之外並行）", accept:["學校課程","學校","搭配學校課程","在學校課程之外","校內課程","schoolprogramme","school"] },
+    takeaway:"We're honest that we're not an authorised AP/IB school, and we turn that into clarity: three clear modes of support. Honesty about what we are not is what makes families trust what we say we are." }
+];
+
+const PHIL_CIPHER = {
+  en:{ prompt:"Ten stops, ten letters, in order. Rearrange them into the two-word phrase that runs under this whole site: the founder's answer to what we do instead of playing the marketing game. <strong>What's the phrase?</strong>",
+    hint:"In order the letters are H A R L A N D W A Y. Two words. The first is the company name.",
+    title:"The Harland Way", win:"Cracked it. \"The work, not the game\" is the spine of every page you just walked. That's the philosophy we're putting in front of the world. Nicely done." },
+  zh:{ prompt:"十站，十個字母，依序排列。把它們重組成貫穿整個網站的兩個英文字：創辦人對「我們不玩行銷遊戲，那我們做什麼」的回答。<strong>這個詞組是什麼？</strong>（英文作答。）",
+    hint:"依序的字母是 H A R L A N D W A Y。兩個英文字，第一個是公司名稱。",
+    title:"The Harland Way", win:"破解了。「做真正的功夫，不玩遊戲」是您剛走過每一頁的核心，也是我們要呈現給世界的理念。做得好。" },
+  accept:["harlandway","theharlandway"]
+};
+
+// ---- Jasmine's track: canonical brand facts (for representing the brand externally) ----
+const CANON_STOPS = [
+  { letter:"O",
+    en:{ title:"How We Describe Ourselves", where:"Homepage (footer)", path:"/",
+      clue:"Scroll to the <strong>homepage footer</strong>. Harland describes itself in one exact phrase, the one to use whenever you introduce us. We are never a 'school,' never 'boutique,' never 'small.' <strong>What is the phrase Harland uses for what it is?</strong>",
+      hint:"Footer, first line: 'A ______ in Taipei.' The format plus two words: 1-on-1 tutoring academy.",
+      reveal:"1-on-1 tutoring academy", accept:["1on1tutoringacademy","oneononetutoringacademy","tutoringacademy","academy","1on1academy"] },
+    zh:{ title:"我們如何描述自己", where:"首頁（頁尾）", path:"/",
+      clue:"捲到<strong>首頁頁尾</strong>。Harland 用一個精確的詞描述自己，也就是您介紹我們時應該使用的說法。我們從不是「學校」、不是「精品」、不是「小型」。<strong>Harland 用來描述自身定位的詞是什麼？</strong>",
+      hint:"頁尾第一行：「位於台北的______」。中文網站用「一對一學習學院」。",
+      reveal:"一對一學習學院", accept:["一對一學習學院","一對一教學學院","學院","一對一"] },
+    takeaway:"This is the locked phrase for what Harland is. Use it verbatim externally. Never 'school' (regulatory), never 'boutique' or 'small.' When press or a parent asks what Harland is, this is the answer." },
+
+  { letter:"N",
+    en:{ title:"When It Began", where:"Our Story (and FAQs)", path:"/our-story/",
+      clue:"On <strong>Our Story</strong>, and again in the FAQs, Harland gives the year it was founded in Taipei, the year of that first one-teacher, one-student lesson. <strong>What year was Harland founded?</strong>",
+      hint:"Section II of Our Story: 'Harland was founded in Taipei in ____.'", reveal:"2019", accept:["2019"] },
+    zh:{ title:"從哪一年開始", where:"關於 Harland（與常見問題）", path:"/our-story/",
+      clue:"在<strong>關於 Harland</strong>頁（常見問題也再次提到），Harland 寫出了它在台北創立的年份，也就是第一堂「一位老師、一位學生」課程的那一年。<strong>Harland 創立於哪一年？</strong>",
+      hint:"關於 Harland 第二節：「Harland 於____年在台北創立」。", reveal:"2019", accept:["2019"] },
+    takeaway:"2019 is the founding year for the brand story. It anchors 'six years on' language and the 'started with one student' origin. Keep the year consistent in every external telling." },
+
+  { letter:"E",
+    en:{ title:"Where We Are", where:"FAQs (About Harland)", path:"/faqs/",
+      clue:"On the <strong>FAQs</strong>, Harland names the specific Taipei district where its premises sit. <strong>Which district of Taipei is Harland located in?</strong>",
+      hint:"'What is Harland?' and 'Where are you located?' both name it: Taipei's ______ District.", reveal:"Da'an District", accept:["daan","daandistrict","大安","大安區"] },
+    zh:{ title:"我們在哪裡", where:"常見問題（關於 Harland）", path:"/faqs/",
+      clue:"在<strong>常見問題</strong>頁，Harland 寫出了學院所在的台北行政區。<strong>Harland 位於台北的哪一區？</strong>",
+      hint:"「Harland 是什麼樣的學院？」與「Harland 位在哪裡？」都提到：台北市____。", reveal:"大安區", accept:["大安","大安區","daan","daandistrict"] },
+    takeaway:"Da'an District signals central and premium. Pair it with 'in Taipei and online' so the message always covers both in-person and relocated families." },
+
+  { letter:"S",
+    en:{ title:"How We Teach", where:"FAQs / English & Writing", path:"/faqs/",
+      clue:"Harland's pedagogy has a specific name it uses everywhere. Students learn English through real subject matter, not isolated vocabulary and grammar. <strong>Name the three-word pedagogy.</strong> (Lowercase, hyphenated.)",
+      hint:"'What is content-based learning?' Three words, hyphen in the middle.", reveal:"content-based learning", accept:["contentbasedlearning"] },
+    zh:{ title:"我們怎麼教", where:"常見問題／英文與寫作", path:"/faqs/",
+      clue:"Harland 的教學法有一個固定名稱，到處都用。學生透過真實的學科內容學英文，而不是孤立地背單字與文法。<strong>請說出這套教學法的中文名稱。</strong>",
+      hint:"看「什麼是內容導向的學習？」。", reveal:"內容導向的學習", accept:["內容導向學習","內容導向的學習","內容導向"] },
+    takeaway:"Content-based learning is the one idea that separates us from buxiban language centers. Lead with it: it's the 'why we're different' in three words." },
+
+  { letter:"T",
+    en:{ title:"The Curriculum Standard", where:"English & Writing hub", path:"/programs/english-and-writing/",
+      clue:"Every Harland program rests on one recognized set of academic standards as its spine. <strong>Name the standards.</strong>",
+      hint:"'A curriculum spine of...' A US framework. Think Common.", reveal:"US Common Core (State Standards)", accept:["uscommoncore","commoncore","uscommoncorestandards","commoncorestandards","uscommoncorestatestandards"] },
+    zh:{ title:"課程依循的標準", where:"英文與寫作課程頁", path:"/programs/english-and-writing/",
+      clue:"Harland 每一套課程都以一組受認可的學術標準為主幹。<strong>請說出這組標準的名稱。</strong>（中英皆可。）",
+      hint:"看「課程主幹：美國共同核心」。", reveal:"美國共同核心州立標準（US Common Core）", accept:["美國共同核心","共同核心","美國共同核心州立標準","uscommoncore","commoncore"] },
+    takeaway:"US Common Core gives the brand academic credibility, the proof there's rigor under the personalization. Cite it when families ask what we actually teach to." },
+
+  { letter:"U",
+    en:{ title:"The Proof", where:"Homepage", path:"/",
+      clue:"Harland's strongest brand claim isn't a slogan, it's a number, repeated on the homepage. With no ads and no referral incentives, what share of new students still come through a parent's referral? <strong>Answer as written (e.g. 'X in ten').</strong>",
+      hint:"Homepage headline stat: eight in ten.", reveal:"Eight in ten", accept:["eightinten","8inten","8in10","eightin10","80percent","80"] },
+    zh:{ title:"最有力的證明", where:"首頁", path:"/",
+      clue:"Harland 最有力的品牌主張不是口號，而是一個數字，在首頁反覆出現。在不打廣告、不給推薦獎勵的情況下，仍有多少比例的新學生來自家長推薦？<strong>請依頁面寫法作答（例如「十位中有八位」）。</strong>",
+      hint:"首頁數據：十位中有八位。", reveal:"十位中有八位（八）", accept:["8","八","十位中有八位","8位","八位"] },
+    takeaway:"Eight in ten via referral is the headline proof point, evidence not boast. Open external pitches with it: families send families, that's the whole story." },
+
+  { letter:"D",
+    en:{ title:"How Far We Reach", where:"Homepage", path:"/",
+      clue:"Because families stay through relocations, Harland's student body spans a number of continents and eight countries. <strong>How many continents does the homepage say the student body spans?</strong>",
+      hint:"'...spans three continents and eight countries.'", reveal:"Three", accept:["3","three"] },
+    zh:{ title:"我們的觸及範圍", where:"首頁", path:"/",
+      clue:"因為家庭即使搬遷仍持續跟著我們，Harland 的學生如今遍及數個大洲與八個國家。<strong>首頁說學生遍及幾大洲？</strong>",
+      hint:"「遍及三大洲、八個國家」。", reveal:"三（三大洲）", accept:["3","三","三大洲","三大"] },
+    takeaway:"Three continents, eight countries is the reach story: a Taipei academy with a roster that travels. Use it to show staying power and an international, not local, footprint." },
+
+  { letter:"E",
+    en:{ title:"The One Call to Action", where:"Everywhere (the gold button)", path:"/",
+      clue:"Across the entire site, every primary button uses the same exact words to invite a family in. This is our locked call to action, never reworded. <strong>What are those words?</strong>",
+      hint:"The gold button, top right and at the foot of every page: 'Start the ______.'", reveal:"Start the conversation", accept:["starttheconversation","startaconversation"] },
+    zh:{ title:"唯一的行動呼籲", where:"全站（那顆金色按鈕）", path:"/",
+      clue:"整個網站上，每一個主要按鈕都用同樣精確的字句邀請家庭。這是我們鎖定的行動呼籲，從不改寫。<strong>這幾個字是什麼？</strong>",
+      hint:"右上角與每頁底部那顆按鈕：「開始______」。", reveal:"開始對話", accept:["開始對話","starttheconversation"] },
+    takeaway:"'Start the conversation' (開始對話) is the locked CTA. Every ad, post, email, and signature ends with these exact words. Never 'contact us' or 'book now.' Consistency here is brand discipline." },
+
+  { letter:"N",
+    en:{ title:"Our Publication", where:"Homepage / nav (About)", path:"/harland-review/",
+      clue:"Harland publishes long-form editorial guides for parents, written by faculty, free to read. <strong>What is this publication called?</strong>",
+      hint:"Linked in the nav and footer under About: 'The Harland ______.'", reveal:"The Harland Review", accept:["harlandreview","theharlandreview"] },
+    zh:{ title:"我們的刊物", where:"首頁／導覽（關於）", path:"/harland-review/",
+      clue:"Harland 出版為家長撰寫的長篇編輯指南，由師資執筆，免費閱讀。<strong>這份刊物叫什麼名字？</strong>（英文名稱。）",
+      hint:"導覽與頁尾「關於」底下：The Harland Review。", reveal:"The Harland Review", accept:["harlandreview","theharlandreview"] },
+    takeaway:"The Harland Review is our owned-media and thought-leadership engine. Point parents and press to it: it's how we answer real questions in our own voice, free." },
+
+  { letter:"T",
+    en:{ title:"Where to Find Us", where:"Homepage (footer / FAQs)", path:"/",
+      clue:"Final canonical fact. Harland's official messaging channel, its LINE Official Account, has a specific handle shown in the footer and FAQs. <strong>What is the LINE handle?</strong> (With or without the @, either works.)",
+      hint:"Footer: 'LINE ______'. The FAQ writes it as @Harlandtw.", reveal:"@Harlandtw", accept:["harlandtw","@harlandtw","lineharlandtw"] },
+    zh:{ title:"在哪裡找到我們", where:"首頁（頁尾／常見問題）", path:"/",
+      clue:"最後一個正規資訊。Harland 的官方聯絡管道是 LINE 官方帳號，頁尾與常見問題都列出了它的帳號。<strong>這個 LINE 帳號是什麼？</strong>（有沒有 @ 都可以。）",
+      hint:"頁尾「LINE ______」。常見問題寫成 @Harlandtw。", reveal:"@Harlandtw", accept:["harlandtw","@harlandtw","lineharlandtw"] },
+    takeaway:"@Harlandtw is the official LINE handle, the primary inbound channel for Taiwan families. Put it on every piece of collateral. It's where 'start the conversation' actually happens for most parents." }
+];
+
+const CANON_CIPHER = {
+  en:{ prompt:"Ten canonical facts, ten letters, in order. Rearrange them into the phrase from the homepage hero, the four words that capture the whole model. <strong>What's the phrase?</strong>",
+    hint:"In order: O N E S T U D E N T. The hero reads 'Specialist teaching, ____ ____ at a ____.'",
+    title:"One Student at a Time", win:"That's the hero line, and the whole promise in four words: one student, one teacher, full attention. This is the phrase to build every brand message around." },
+  zh:{ prompt:"十個正規資訊，十個字母，依序排列。把它們重組成首頁主視覺的那句英文，用四個字概括整個模式。<strong>這句英文是什麼？</strong>（英文作答。）",
+    hint:"依序：O N E S T U D E N T。英文主視覺寫的是「Specialist teaching, ____ ____ at a ____.」",
+    title:"One Student at a Time", win:"這就是主視覺那句話，四個英文字道盡整個承諾：一位學生、一位老師、全心投入。所有品牌訊息都可以圍繞這句話來建立。" },
+  accept:["onestudentatatime","onestudent"]
+};
+// Jasmine's canonical hunt alternates between the English and Chinese sites, stop by stop.
+const CANON_MIX = ["en","zh","en","zh","en","zh","en","zh","en","zh"];
+
+const GOODJOB = {
+  en:["Nailed it!","Brilliant!","That's the one!","Spot on!","Boom!","Yes! Clean.","Textbook.","On the money.","Too easy for you."],
+  zh:["答對了！","漂亮！","就是這個！","太厲害了！","完全正確！","神準！","這題難不倒您！","正中紅心！"]
+};
+
+// ---- FAQ Lightning Round ----
+const LIGHTNING = {
+  en:{ launch:"⚡ FAQ Lightning Round", intro:"Seven parent questions. For each, tap the FAQ section where it lives. This is the map your team needs cold. Up to 7 bonus points.",
+    cats:["About Harland","Programs & Curriculum","Admissions","Academics & Teaching","Scheduling & Logistics","Pricing & Value","AP, IB & Test Prep","Adult Learners","Bilingual & Language","Report Cards & Assessment"],
+    q:[ {text:"“My child's teacher is sick this week. Who covers the lesson?”", a:3},
+        {text:"“What's your cancellation policy?”", a:4},
+        {text:"“Are you an authorised IB school?”", a:6},
+        {text:"“If Harland isn't the right fit, can we get a refund?”", a:5},
+        {text:"“When do report cards come out?”", a:9},
+        {text:"“I don't speak English. Can I still enroll my child?”", a:8},
+        {text:"“Do you teach adults?”", a:7} ],
+    qof:(a,b)=>`Question ${a} of ${b}`, round:"Round score", correct:"Correct!", wrong:(c)=>`That one lives under “${c}.”`,
+    doneTitle:"Round over.", doneSub:(s,n)=>`You mapped ${s} of ${n} correctly. ${s===n?'Perfect run.':''}`, best:(b)=>`Best: ${b}/7`,
+    replay:"Play again", back:"Back to the hunt" },
+  zh:{ launch:"⚡ 常見問題閃電題", intro:"七個家長問題。每一題，點出它屬於常見問題的哪個分類。這是您的團隊需要熟到反射的地圖。最多 7 分加分。",
+    cats:["關於 Harland","課程與教學內容","入學流程","教學與師資","排課與細節","學費與價值","AP、IB 與應試準備","成人學員","雙語與語言","成績單與學習評量"],
+    q:[ {text:"「孩子的老師這週生病了，由誰代課？」", a:3},
+        {text:"「取消課程的規定是什麼？」", a:4},
+        {text:"「你們是授權的 IB 學校嗎？」", a:6},
+        {text:"「如果 Harland 不適合，我們可以退費嗎？」", a:5},
+        {text:"「成績單什麼時候發？」", a:9},
+        {text:"「我不會英文，可以幫孩子報名嗎？」", a:8},
+        {text:"「你們有教成人嗎？」", a:7} ],
+    qof:(a,b)=>`第 ${a} 題，共 ${b} 題`, round:"本回合得分", correct:"答對了！", wrong:(c)=>`這題在「${c}」分類底下。`,
+    doneTitle:"回合結束。", doneSub:(s,n)=>`您答對了 ${n} 題中的 ${s} 題。${s===n?'完美！':''}`, best:(b)=>`最佳：${b}/7`,
+    replay:"再玩一次", back:"回到尋寶" }
+};
+
+const UI = {
+  en:{ stopOf:(a,b)=>`Stop ${a} of ${b}`, solved:"Solved", skippedTag:"Skipped", pts:(n)=>`${n} pt${n===1?'':'s'}`,
+    hintUsed:"1 pt (hint used)", zeroPts:"0 pts (skipped)", openPage:"open the page ↗",
+    needHint:"Need a hint? (drops this clue to 1 pt)", hintShown:"Hint (shown)", check:"Check",
+    skip:"Stuck? Skip this one", typeFirst:"Type something first.", wrong:"Not quite. Re-read that part of the page, or take the hint.",
+    letterEarned:(L)=>`+ letter “${L}”`, whyMatters:"Why this matters", answerWas:(a)=>`The answer was: <b>${a}</b>`,
+    railAll:"All ten solved. The cipher is below.", railMid:(c,n,s)=>`Stop ${c} of ${n} · ${s} done`, railDone:"Complete. Cipher cracked.",
+    finalCipher:"The Final Cipher", cipherSolved:"Final cipher · Solved", solveBtn:"Solve",
+    cipherPlaceholder:"The two-word phrase", cipherWrong:"Not it. Rearrange the ten letters, two words.",
+    cipherNeedHint:"Need a hint? (drops to 2 pts)", answerPlaceholder:"Type your answer",
+    doneTitle:"You made it through.", doneBody:"That's the philosophy we're putting in front of the world." },
+  zh:{ stopOf:(a,b)=>`第 ${a} 站，共 ${b} 站`, solved:"已解開", skippedTag:"已跳過", pts:(n)=>`${n} 分`,
+    hintUsed:"1 分（已用提示）", zeroPts:"0 分（已跳過）", openPage:"開啟頁面 ↗",
+    needHint:"需要提示嗎？（此題降為 1 分）", hintShown:"提示（已顯示）", check:"確認",
+    skip:"卡住了？跳過這一題", typeFirst:"請先輸入答案。", wrong:"還不對。再讀一次頁面的相關段落，或看看提示。",
+    letterEarned:(L)=>`+ 字母「${L}」`, whyMatters:"為什麼這很重要", answerWas:(a)=>`答案是：<b>${a}</b>`,
+    railAll:"十站全部解開，最後的密碼就在下方。", railMid:(c,n,s)=>`第 ${c} 站，共 ${n} 站 · 已完成 ${s} 站`, railDone:"完成。密碼已破解。",
+    finalCipher:"最後的密碼", cipherSolved:"最後的密碼 · 已破解", solveBtn:"破解",
+    cipherPlaceholder:"兩個英文字的詞組", cipherWrong:"不是這個。把十個字母重新排列，兩個英文字。",
+    cipherNeedHint:"需要提示嗎？（降為 2 分）", answerPlaceholder:"輸入您的答案",
+    doneTitle:"您完成了。", doneBody:"這就是我們要呈現給世界的理念。" }
+};
+
+// ---------------------------------------------------------------------------
+let STOPS=PHIL_STOPS, CIPHER=PHIL_CIPHER;
+let track="philosophy";
+let pkey="", player="", lang="en", base=EN, t=UI.en;
+let solved=[], hintUsed={}, skipped={}, solvedMsg={}, cipherSolved=false, cipherHintUsed=false;
+let lightningBest=0, startTime=null, finishTime=null;
+let inLightning=false, lqOrder=[], lqIdx=0, lqScore=0, lqLocked=false;
+
+// robust: keep only alphanumerics + CJK; strip spaces, apostrophes, hyphens, all punctuation
+function norm(s){ return (s||"").toLowerCase().replace(/[^0-9a-z\u4e00-\u9fff]/g,""); }
+function stopLang(i){ return track==='canon' ? CANON_MIX[i] : lang; }
+function S(i){ return STOPS[i][stopLang(i)]; }
+function stopBase(i){ return stopLang(i)==='zh' ? ZH : EN; }
+function rand(arr){ return arr[(Math.random()*arr.length)|0]; }
+
+async function loadProgress(){
+  try {
+    const raw = localStorage.getItem("hunt5:"+pkey);
+    if (raw){
+      const d=JSON.parse(raw);
+      solved=d.solved||[]; hintUsed=d.hintUsed||{}; skipped=d.skipped||{}; solvedMsg=d.solvedMsg||{};
+      cipherSolved=!!d.cipherSolved; cipherHintUsed=!!d.cipherHintUsed; lightningBest=d.lightningBest||0;
+      startTime=d.startTime||Date.now(); finishTime=d.finishTime||null;
+    } else startTime=Date.now();
+  } catch(e){ startTime=Date.now(); }
+}
+async function saveProgress(){
+  try {
+    localStorage.setItem("hunt5:"+pkey, JSON.stringify({
+      solved,hintUsed,skipped,solvedMsg,cipherSolved,cipherHintUsed,lightningBest,startTime,finishTime
+    }));
+  } catch(e){}
+}
+function score(){
+  let s=0; for(const i of solved) s += (skipped[i]?0:(hintUsed[i]?1:3));
+  if (cipherSolved) s += (cipherHintUsed?2:5);
+  s += lightningBest;
+  return s;
+}
+async function pushLeaderboard(){
+  try {
+    if (!supa) return;
+    await supa.from("leaderboard").upsert({
+      player: player, lang: lang, score: score(), solved: solved.length,
+      cipher: cipherSolved, lightning: lightningBest, finish_time: finishTime, updated: Date.now()
+    }, { onConflict: "player" });
+  } catch(e){}
+}
+async function fetchLeaderboard(){
+  try {
+    if (!supa) return [];
+    const { data } = await supa.from("leaderboard").select("*")
+      .order("score", { ascending:false }).order("finish_time", { ascending:true });
+    return (data||[]).map(r => ({
+      name: r.player, lang: r.lang, score: r.score, solved: r.solved,
+      cipher: r.cipher, lightning: r.lightning, finishTime: r.finish_time
+    }));
+  } catch(e){ return []; }
+}
+
+function allSolved(){ return solved.length>=STOPS.length; }
+function curIdx(){ return solved.length; }
+function renderScorebar(){ document.getElementById("scoreNum").textContent=score(); document.getElementById("whoami").textContent=player; }
+function renderRail(){
+  const rail=document.getElementById("rail"); rail.innerHTML="";
+  const cur=curIdx();
+  for(let i=0;i<STOPS.length;i++){ const p=document.createElement("div");
+    let cls="pip"; if(i<solved.length) cls += skipped[i]?" skip":" done"; else if(i===cur) cls+=" current";
+    p.className=cls; rail.appendChild(p); }
+  const cp=document.createElement("div"); cp.className="pip"+(cipherSolved?" done":(allSolved()?" current":""));
+  cp.style.flex="0 0 24px"; rail.appendChild(cp);
+  const lbl=document.getElementById("progLabel");
+  lbl.textContent = cipherSolved ? t.railDone : (allSolved()? t.railAll : t.railMid(cur+1, STOPS.length, solved.length));
+}
+function collectedLetters(){ return STOPS.map((s,i)=> solved.includes(i)? s.letter : null); }
+
+function renderStops(){
+  const c=document.getElementById("stops");
+  if (inLightning){ renderLightning(c); return; }
+  let html="";
+  for(let i=0;i<solved.length;i++) html+=solvedCardHTML(i);
+  if(!allSolved()){
+    const i=curIdx(); const s=S(i);
+    const worth = hintUsed[i] ? t.hintUsed : t.pts(3);
+    html+=`
+    <div class="card" id="card-${i}">
+      <div class="stop-num"><span>${t.stopOf(i+1,STOPS.length)}</span><span class="worth">${worth}</span></div>
+      <div class="stop-title display">${s.title}</div>
+      <div class="stop-where">${s.where} &nbsp;·&nbsp; <a href="${stopBase(i)}${s.path}" target="_blank" rel="noopener">${t.openPage}</a></div>
+      <div class="clue">${s.clue}</div>
+      <div class="hint-row">
+        <button class="hint-toggle" onclick="useHint(${i})">${hintUsed[i]?t.hintShown:t.needHint}</button>
+        <div class="hint-text ${hintUsed[i]?'show':''}" id="hint-${i}">${s.hint}</div>
+      </div>
+      <div class="answer-row">
+        <input type="text" id="ans-${i}" placeholder="${t.answerPlaceholder}" autocomplete="off" onkeydown="if(event.key==='Enter')checkAnswer(${i})">
+        <button onclick="checkAnswer(${i})">${t.check}</button>
+      </div>
+      <div class="feedback" id="fb-${i}"></div>
+      <div class="skip-row"><button class="skip-btn" onclick="skipStop(${i})">${t.skip}</button></div>
+    </div>`;
+  } else {
+    html+=cipherCardHTML();
+  }
+  c.innerHTML=html;
+  if(!allSolved()){ const inp=document.getElementById("ans-"+curIdx()); if(inp) inp.focus(); }
+  else if(!cipherSolved){ const ci=document.getElementById("cipher-ans"); if(ci) ci.focus(); }
+}
+
+function solvedCardHTML(i){
+  const s=S(i);
+  if (skipped[i]){
+    return `
+    <div class="card solved-card skipped" id="solved-${i}">
+      <div class="stop-num"><span>${t.stopOf(i+1,STOPS.length)} · ${t.skippedTag}</span><span class="worth">${t.zeroPts} ${t.letterEarned(STOPS[i].letter)}</span></div>
+      <div class="stop-title display">${s.title}</div>
+      <div class="skip-flag">${t.answerWas(s.reveal)}</div>
+      <div class="takeaway"><div class="t-lbl">${t.whyMatters}</div><div class="t-body">${STOPS[i].takeaway}</div></div>
+    </div>`;
+  }
+  const pts=hintUsed[i]?1:3;
+  return `
+    <div class="card solved-card" id="solved-${i}">
+      <div class="stop-num"><span>${t.stopOf(i+1,STOPS.length)} · ${t.solved} ✓</span><span class="worth">+${pts} ${t.letterEarned(STOPS[i].letter)}</span></div>
+      <div class="stop-title display">${s.title}</div>
+      <div class="goodjob">✨ ${solvedMsg[i]||''}</div>
+      <div class="takeaway"><div class="t-lbl">${t.whyMatters}</div><div class="t-body">${STOPS[i].takeaway}</div></div>
+    </div>`;
+}
+
+function cipherCardHTML(){
+  const cc=CIPHER[lang];
+  const chips=collectedLetters().map(l=>`<div class="chip">${l||''}</div>`).join("");
+  if(cipherSolved){
+    return `<div class="cipher-card">
+      <div class="stop-num" style="color:var(--gold-soft);"><span>${t.cipherSolved} ✓</span><span class="worth" style="color:#b9a878;">+${cipherHintUsed?2:5}</span></div>
+      <div class="stop-title display">${cc.title}</div><div class="collected">${chips}</div><div class="clue">${cc.win}</div></div>`;
+  }
+  return `<div class="cipher-card">
+    <div class="stop-num" style="color:var(--gold-soft);"><span>${t.finalCipher}</span><span class="worth" style="color:#b9a878;">${cipherHintUsed?'2 / 5':'5'}</span></div>
+    <div class="stop-title display">${t.finalCipher}</div><div class="collected">${chips}</div><div class="clue">${cc.prompt}</div>
+    <div class="hint-row">
+      <button class="hint-toggle" style="color:#b9a878;" onclick="useCipherHint()">${cipherHintUsed?t.hintShown:t.cipherNeedHint}</button>
+      <div class="hint-text ${cipherHintUsed?'show':''}" id="cipher-hint" style="background:rgba(201,180,135,.14); color:#d8cfbf;">${cc.hint}</div>
+    </div>
+    <div class="answer-row">
+      <input type="text" id="cipher-ans" placeholder="${t.cipherPlaceholder}" autocomplete="off" onkeydown="if(event.key==='Enter')checkCipher()">
+      <button onclick="checkCipher()" style="background:var(--gold);">${t.solveBtn}</button>
+    </div>
+    <div class="feedback" id="cipher-fb" style="color:var(--gold);"></div></div>`;
+}
+
+function useHint(i){
+  if(!hintUsed[i]){ hintUsed[i]=true; saveProgress(); renderScorebar(); }
+  const h=document.getElementById("hint-"+i); if(h) h.classList.add("show");
+  if(event&&event.target) event.target.textContent=t.hintShown;
+  const card=document.getElementById("card-"+i); if(card){ const w=card.querySelector(".worth"); if(w) w.textContent=t.hintUsed; }
+}
+async function checkAnswer(i){
+  const inp=document.getElementById("ans-"+i), fb=document.getElementById("fb-"+i);
+  const val=norm(inp.value);
+  if(!val){ fb.className="feedback wrong"; fb.textContent=t.typeFirst; return; }
+  if(S(i).accept.map(norm).includes(val)){
+    solvedMsg[i]=rand(GOODJOB[lang]);
+    if(!solved.includes(i)) solved.push(i);
+    if(allSolved() && !finishTime) finishTime=Date.now();
+    toast(solvedMsg[i]); celebrate(1);
+    await saveProgress(); await pushLeaderboard();
+    setTimeout(()=>{ renderScorebar(); renderRail(); renderStops();
+      const el=document.getElementById("solved-"+i); if(el) el.scrollIntoView({behavior:'smooth',block:'center'}); }, 650);
+  } else { fb.className="feedback wrong"; fb.textContent=t.wrong; }
+}
+async function skipStop(i){
+  skipped[i]=true; if(!solved.includes(i)) solved.push(i);
+  if(allSolved() && !finishTime) finishTime=Date.now();
+  await saveProgress(); await pushLeaderboard();
+  renderScorebar(); renderRail(); renderStops();
+  const el=document.getElementById("solved-"+i); if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function useCipherHint(){
+  if(!cipherHintUsed){ cipherHintUsed=true; saveProgress(); renderScorebar(); }
+  const h=document.getElementById("cipher-hint"); if(h) h.classList.add("show");
+  if(event&&event.target) event.target.textContent=t.hintShown;
+}
+async function checkCipher(){
+  const inp=document.getElementById("cipher-ans"), fb=document.getElementById("cipher-fb");
+  const val=norm(inp.value);
+  if(!val){ fb.textContent=t.typeFirst; return; }
+  if(CIPHER.accept.map(norm).includes(val)){
+    cipherSolved=true; if(!finishTime) finishTime=Date.now();
+    toast(lang==='zh'?'破解了！':'Cracked it!'); celebrate(1.4);
+    await saveProgress(); await pushLeaderboard();
+    renderScorebar(); renderRail(); renderStops(); window.scrollTo({top:0,behavior:'smooth'});
+  } else fb.textContent=t.cipherWrong;
+}
+
+// ---- FAQ Lightning Round ----
+function launchLightning(){
+  inLightning=true; lqLocked=false; lqIdx=0; lqScore=0;
+  lqOrder=LIGHTNING[lang].q.map((_,k)=>k);
+  for(let k=lqOrder.length-1;k>0;k--){ const j=(Math.random()*(k+1))|0; [lqOrder[k],lqOrder[j]]=[lqOrder[j],lqOrder[k]]; }
+  document.getElementById("lrBtn").style.display="none";
+  renderStops(); window.scrollTo({top:0,behavior:'smooth'});
+}
+function exitLightning(){
+  inLightning=false; document.getElementById("lrBtn").style.display="";
+  renderRail(); renderStops();
+}
+function renderLightning(c){
+  const L=LIGHTNING[lang], n=lqOrder.length;
+  if(lqIdx>=n){
+    if(lqScore>lightningBest){ lightningBest=lqScore; saveProgress(); pushLeaderboard(); renderScorebar(); }
+    c.innerHTML=`<div class="lr-card lr-done">
+      <div class="lr-head"><span>${L.launch}</span><span>${L.best(lightningBest)}</span></div>
+      <div class="stop-title display" style="margin:8px 0 2px;">${L.doneTitle}</div>
+      <div class="score">${lqScore}/${n}</div>
+      <div class="lr-intro">${L.doneSub(lqScore,n)}</div>
+      <div class="lr-actions">
+        <button class="answer-row" style="background:var(--gold);color:#fff;border:none;border-radius:9px;padding:11px 20px;font-weight:600;font-family:inherit;cursor:pointer;" onclick="launchLightning()">${L.replay}</button>
+        <button class="ghost" onclick="exitLightning()">${L.back}</button>
+      </div></div>`;
+    return;
+  }
+  const qi=lqOrder[lqIdx], q=L.q[qi];
+  const opts=L.cats.map((cat,idx)=>`<button class="lr-opt" id="lr-opt-${idx}" onclick="lightningAnswer(${idx},${q.a})">${cat}</button>`).join("");
+  c.innerHTML=`<div class="lr-card">
+    <div class="lr-head"><span>${L.qof(lqIdx+1,n)}</span><span>${L.round}: ${lqScore}</span></div>
+    ${lqIdx===0?`<div class="lr-intro">${L.intro}</div>`:''}
+    <div class="lr-q">${q.text}</div>
+    <div class="lr-grid">${opts}</div>
+    <div class="lr-fb" id="lr-fb"></div>
+    <div class="skip-row" style="margin-top:12px;"><button class="skip-btn" onclick="exitLightning()">${L.back}</button></div>
+  </div>`;
+}
+function lightningAnswer(picked, correct){
+  if(lqLocked) return; lqLocked=true;
+  const L=LIGHTNING[lang], fb=document.getElementById("lr-fb");
+  document.querySelectorAll(".lr-opt").forEach(b=>b.disabled=true);
+  const correctBtn=document.getElementById("lr-opt-"+correct);
+  if(picked===correct){
+    correctBtn.classList.add("correct"); fb.className="lr-fb right"; fb.textContent=L.correct;
+    lqScore++; toast(rand(GOODJOB[lang])); celebrate(0.6);
+  } else {
+    document.getElementById("lr-opt-"+picked).classList.add("wrong");
+    correctBtn.classList.add("correct"); fb.className="lr-fb wrong"; fb.textContent=L.wrong(L.cats[correct]);
+  }
+  setTimeout(()=>{ lqIdx++; lqLocked=false; renderStops(); }, 1050);
+}
+
+// ---- leaderboard ----
+async function renderBoard(target){
+  const rows=await fetchLeaderboard();
+  rows.sort((a,b)=> b.score!==a.score ? b.score-a.score : (a.finishTime||Infinity)-(b.finishTime||Infinity));
+  const el=target||document.getElementById("lbRows");
+  if(!rows.length){ el.innerHTML=`<div class="lb-empty">No one's on the board yet. Be the first.</div>`; return; }
+  el.innerHTML=rows.map((r,idx)=>{
+    const me=r.name===player;
+    let meta=(r.solved||0)+"/10"; if(r.lightning) meta+=" · ⚡"+r.lightning; if(r.cipher) meta+=" · ✦";
+    const flag=r.lang==='zh'?'中文':'EN';
+    return `<div class="lb-row"><div class="lb-rank">${idx+1}</div>
+      <div class="lb-name ${me?'me':''}">${escapeHtml(r.name)}<span class="flag">${flag}</span>${me?'<span class="you-tag">YOU</span>':''}</div>
+      <div class="lb-meta">${meta}</div><div class="lb-score">${r.score}</div></div>`;
+  }).join("");
+}
+function escapeHtml(s){ return (s||"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+// ---- fireworks ----
+const fxCanvas=document.getElementById("fx"), fxCtx=fxCanvas.getContext("2d");
+let fxParticles=[], fxRAF=null;
+function fxResize(){ fxCanvas.width=innerWidth; fxCanvas.height=innerHeight; }
+addEventListener("resize", fxResize); fxResize();
+const FX_COLORS=["#9a7b3f","#c9b487","#e4c97a","#3f7a52","#fffdf8","#d8a13f"];
+function fxBurst(cx,cy,count){
+  for(let i=0;i<count;i++){ const a=Math.random()*Math.PI*2, sp=2+Math.random()*5;
+    fxParticles.push({x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-2,life:1,color:FX_COLORS[(Math.random()*FX_COLORS.length)|0],size:2+Math.random()*2}); }
+}
+function fxTick(){
+  fxCtx.clearRect(0,0,fxCanvas.width,fxCanvas.height); let alive=false;
+  for(const p of fxParticles){ if(p.life<=0) continue; alive=true;
+    p.x+=p.vx; p.y+=p.vy; p.vy+=0.08; p.vx*=0.99; p.life-=0.018;
+    fxCtx.globalAlpha=Math.max(p.life,0); fxCtx.fillStyle=p.color;
+    fxCtx.beginPath(); fxCtx.arc(p.x,p.y,p.size,0,Math.PI*2); fxCtx.fill(); }
+  fxCtx.globalAlpha=1;
+  if(alive) fxRAF=requestAnimationFrame(fxTick); else { fxRAF=null; fxParticles=[]; fxCtx.clearRect(0,0,fxCanvas.width,fxCanvas.height); }
+}
+function celebrate(scale){
+  scale=scale||1; const W=fxCanvas.width, H=fxCanvas.height;
+  const shots=scale>=1.3?5:(scale>=1?3:2); let d=0;
+  for(let s=0;s<shots;s++){ setTimeout(()=>{ const cx=W*(0.2+Math.random()*0.6), cy=H*(0.18+Math.random()*0.32);
+    fxBurst(cx,cy, scale>=1?44:26); if(!fxRAF) fxTick(); }, d); d+=170; }
+}
+function toast(msg){ const el=document.getElementById("toast"); el.textContent=msg; el.classList.add("show");
+  clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove("show"),1650); }
+
+// ---- boot ----
+async function choose(key){
+  pkey=key; player=PLAYERS[key].name; lang=PLAYERS[key].lang;
+  track = PLAYERS[key].track || "philosophy";
+  STOPS = track==="canon" ? CANON_STOPS : PHIL_STOPS;
+  CIPHER = track==="canon" ? CANON_CIPHER : PHIL_CIPHER;
+  base = lang==='zh' ? ZH : EN; t = UI[lang];
+  document.documentElement.lang = lang==='zh' ? 'zh-Hant' : 'en';
+  document.getElementById("lrBtn").textContent = LIGHTNING[lang].launch;
+  await loadProgress();
+  document.getElementById("gate").style.display="none";
+  document.getElementById("game").style.display="block";
+  document.getElementById("board").style.display="block";
+  renderScorebar(); renderRail(); renderStops();
+  await pushLeaderboard(); await renderBoard();
+}
+document.getElementById("viewBoardBtn").addEventListener("click", async ()=>{
+  document.getElementById("gate").style.display="none";
+  document.getElementById("board").style.display="block"; await renderBoard();
+});
+document.getElementById("refreshBtn").addEventListener("click", ()=>renderBoard());
+</script>
+</body>
+</html>
