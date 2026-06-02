@@ -21,20 +21,16 @@
     background: var(--cream); color: var(--ink); line-height: 1.55; padding: 24px 16px 80px; }
   .wrap { max-width: 660px; margin: 0 auto; }
   .display { font-family: 'Cormorant Garamond', Georgia, serif; }
-
-  /* fireworks + toast */
   #fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
   .toast { position: fixed; left: 50%; top: 32%; transform: translate(-50%,-50%) scale(.8); background: var(--gold-grad);
     color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600;
-    padding: 14px 34px; border-radius: 14px; box-shadow: var(--shadow); opacity: 0; pointer-events: none; z-index: 60;
+    padding: 14px 34px; border-radius: 14px; box-shadow: var(--shadow); opacity: 0; pointer-events: none; z-index: 80;
     transition: opacity .22s ease, transform .22s ease; white-space: nowrap; }
   .toast.show { opacity: 1; transform: translate(-50%,-50%) scale(1); }
-
   header { text-align: center; margin-bottom: 26px; }
   .eyebrow { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
   h1.display { font-size: 38px; font-weight: 600; line-height: 1.08; letter-spacing: -.01em; color: var(--green-deep); }
   .sub { color: #6b665d; font-size: 15px; margin-top: 10px; max-width: 500px; margin-left: auto; margin-right: auto; }
-
   .gate { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 26px 24px; box-shadow: var(--shadow); }
   .gate h2 { font-size: 14px; letter-spacing: .04em; margin-bottom: 4px; }
   .gate .lead { font-size: 13px; color: #6b665d; margin-bottom: 18px; }
@@ -47,32 +43,34 @@
   .pbtn:hover { border-color: var(--gold-soft); box-shadow: 0 0 0 3px rgba(201,180,135,.18); }
   .pbtn:active { transform: translateY(1px); }
   .pbtn .pname { font-weight: 700; font-size: 16px; }
-  .pbtn .prole { font-size: 12px; color: #8a8377; margin-top: 2px; }
+  .pbtn .prole { font-size: 12px; color: #8a8377; margin-top: 6px; }
   .pbtn .lang { font-size: 11px; font-weight: 700; letter-spacing: .06em; padding: 4px 10px; border-radius: 20px; background: var(--cream); color: var(--gold); border: 1px solid var(--gold-soft); }
   .pbtn .lang.zh { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+  .test-row { margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--line); }
+  .test-lbl { font-size: 12px; color: #9a958a; display: block; margin-bottom: 8px; }
+  .test-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tbtn { font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer; background: #fff; color: #8a8377;
+    border: 1px dashed var(--gold-soft); border-radius: 8px; padding: 8px 12px; }
+  .tbtn:hover { background: rgba(201,180,135,.1); color: var(--ink); }
   .gate-foot { margin-top: 16px; text-align: center; }
   .gate-foot button { font-size: 12px; padding: 7px 16px; }
-
   button.ghost { background: transparent; color: var(--gold); border: 1px solid var(--gold-soft); border-radius: 9px; font-family: inherit;
     font-weight: 600; cursor: pointer; padding: 9px 18px; font-size: 14px; }
   button.ghost:hover { background: rgba(201,180,135,.12); }
-
   input[type=text] { width: 100%; padding: 12px 14px; font-size: 16px; font-family: inherit; border: 1px solid var(--line);
     border-radius: 9px; background: #fff; color: var(--ink); }
   input[type=text]:focus { outline: none; border-color: var(--gold-soft); box-shadow: 0 0 0 3px rgba(201,180,135,.25); }
-
   .launch-bar { display: flex; justify-content: center; margin: 0 0 20px; }
-  .launch-bar button { background: linear-gradient(180deg, #b89a55, var(--gold)); color: #fff; border: none; border-radius: 10px;
+  .launch-bar button { background: var(--gold-grad); color: #fff; border: none; border-radius: 10px;
     font-family: inherit; font-weight: 700; font-size: 14px; cursor: pointer; padding: 11px 20px; box-shadow: var(--shadow);
     letter-spacing: .02em; transition: transform .05s, filter .15s; }
   .launch-bar button:hover { filter: brightness(1.05); } .launch-bar button:active { transform: translateY(1px); }
-
-  .progress-rail { display: flex; align-items: center; gap: 5px; margin: 24px 0 10px; }
+  .progress-rail { display: flex; align-items: center; gap: 4px; margin: 24px 0 10px; }
   .pip { flex: 1; height: 6px; border-radius: 3px; background: var(--line); transition: background .3s; }
   .pip.done { background: var(--gold); } .pip.current { background: var(--gold-soft); } .pip.skip { background: #d8cdb4; }
   .progress-label { font-size: 12px; color: #8a8377; text-align: center; margin-bottom: 16px; letter-spacing: .03em; }
-
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 25px 24px; box-shadow: var(--shadow); margin-bottom: 18px; }
+  .explore-eyebrow { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
   .stop-num { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; display:flex; justify-content:space-between; align-items:center; }
   .worth { font-size: 11px; color: #8a8377; letter-spacing: .03em; text-transform: none; }
   .stop-title.display { font-size: 24px; font-weight: 600; margin-bottom: 4px; }
@@ -93,19 +91,16 @@
   .skip-btn:hover { color: #8a8377; }
   .feedback { font-size: 13px; min-height: 16px; font-weight: 500; }
   .feedback.wrong { color: var(--red); } .feedback.right { color: var(--green); }
-
   .goodjob { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--gold); margin-bottom: 8px; }
   .skip-flag { font-size: 13px; color: #8a8377; margin-bottom: 8px; }
   .skip-flag b { color: var(--ink); }
   .takeaway { border-left: 3px solid var(--gold-soft); padding: 10px 14px; background: rgba(201,180,135,.09); border-radius: 0 8px 8px 0; }
   .takeaway .t-lbl { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
   .takeaway .t-body { font-size: 14px; color: #5c574e; }
-
   .solved-card { background: var(--green-soft); border-color: #cfe3d6; }
   .solved-card.skipped { background: #f6f2e8; border-color: var(--line); }
   .solved-card .stop-title.display { color: var(--green); }
   .solved-card.skipped .stop-title.display { color: #8a8377; }
-
   .cipher-card { background: var(--green-grad); color: var(--cream); border-radius: 14px; padding: 28px 24px; box-shadow: var(--shadow); margin-bottom: 18px; }
   .cipher-card .stop-title.display { color: var(--gold-soft); font-size: 26px; }
   .cipher-card .clue { color: #e8e3d8; } .cipher-card .clue strong { color: var(--gold-soft); }
@@ -113,11 +108,15 @@
   .chip { background: rgba(201,180,135,.18); border: 1px solid rgba(201,180,135,.4); color: var(--gold-soft); width: 34px; height: 40px;
     display:flex; align-items:center; justify-content:center; border-radius:7px; font-size:18px; font-weight:700; font-family:'Cormorant Garamond',serif; }
   .cipher-card input[type=text] { background: rgba(255,255,255,.07); border-color: rgba(201,180,135,.3); color: var(--cream); }
-
-  /* lightning round */
-  .lr-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 25px 24px; box-shadow: var(--shadow); margin-bottom: 18px; }
+  .lr-overlay { position: fixed; inset: 0; background: rgba(42,39,34,.55); display: flex; align-items: center; justify-content: center; z-index: 70; padding: 16px; }
+  .lr-box { background: var(--cream); border-radius: 16px; box-shadow: 0 20px 60px rgba(42,39,34,.3); max-width: 560px; width: 100%; max-height: 92vh; overflow-y: auto; padding: 28px 24px 24px; position: relative; }
+  .lr-close { position: absolute; top: 12px; right: 14px; background: none; border: none; font-size: 18px; color: #9a958a; cursor: pointer; line-height: 1; }
   .lr-head { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; display:flex; justify-content:space-between; }
-  .lr-q { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 600; line-height: 1.25; margin: 6px 0 18px; }
+  .lr-timerbar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; margin: 12px 0 16px; }
+  .lr-timerfill { height: 100%; width: 100%; background: var(--gold-grad); }
+  .lr-timerfill.warn { background: linear-gradient(135deg,#c2603f,#a8442f); }
+  .lr-meta { font-size: 12px; color: #8a8377; margin-bottom: 6px; }
+  .lr-q { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 600; line-height: 1.25; margin: 4px 0 18px; }
   .lr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .lr-opt { text-align: left; background: #fff; border: 1px solid var(--line); border-radius: 9px; padding: 11px 12px; font-size: 13px; font-weight: 600;
     color: var(--ink); cursor: pointer; font-family: inherit; transition: border-color .12s, background .12s; }
@@ -127,15 +126,13 @@
   .lr-opt:disabled { cursor: default; }
   .lr-fb { font-size: 13px; font-weight: 600; min-height: 18px; margin-top: 12px; }
   .lr-fb.right { color: var(--green); } .lr-fb.wrong { color: var(--red); }
-  .lr-done { text-align: center; }
-  .lr-done .score { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 600; color: var(--gold); margin: 6px 0; }
-  .lr-actions { display: flex; gap: 8px; justify-content: center; margin-top: 16px; }
   .lr-intro { font-size: 14px; color: #6b665d; margin-bottom: 16px; }
-
+  .lr-done { text-align: center; }
+  .lr-done .score { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 600; color: var(--gold); margin: 6px 0; }
+  .lr-actions { display: flex; gap: 8px; justify-content: center; margin-top: 16px; }
   .done-banner { text-align: center; background: var(--gold-grad); color: #fff; border-radius: 14px; padding: 36px 24px; box-shadow: var(--shadow); margin-bottom: 18px; }
   .done-banner h2.display { font-size: 30px; color: #fff; margin-bottom: 10px; }
   .done-banner p { font-size: 15px; opacity: .92; }
-
   .board { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px 22px 14px; box-shadow: var(--shadow); margin-top: 24px; }
   .board h3 { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
   .board .board-sub { font-size: 12px; color: #9a958a; margin-bottom: 16px; }
@@ -149,7 +146,6 @@
   .lb-score { font-weight: 700; text-align: right; min-width: 32px; }
   .lb-empty { font-size: 13px; color: #9a958a; padding: 12px 0; text-align: center; }
   .refresh-row { text-align: center; margin-top: 14px; }
-
   .scorebar { position: sticky; top: 0; z-index: 10; background: var(--cream); padding: 8px 0 12px; margin: -8px 0 0;
     display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
   .scorebar .pts { font-weight: 700; color: var(--gold); font-size: 18px; }
@@ -166,18 +162,17 @@
   <header>
     <div class="eyebrow">Harland Education · Internal</div>
     <h1 class="display">The Harland Site Hunt</h1>
-    <p class="sub">Ten stops across the new site, plus a FAQ lightning round. The point isn't trivia, it's the philosophy and the words we're about to put in front of the world.</p>
+    <p class="sub">Fifteen stops across the new site, plus a timed FAQ lightning round. The point isn't trivia, it's the philosophy and the words we're about to put in front of the world.</p>
   </header>
 
-  <!-- GATE -->
   <div id="gate" class="gate">
     <div class="rules">
       <strong>How to play</strong>
       <ul>
         <li>Each clue points to a fact on a real page. Find it, type it, and the next stop unlocks (with fireworks).</li>
-        <li>Every right answer reveals <b>why that line matters</b> for how we talk about Harland, and earns a <b>letter</b>.</li>
-        <li>Collect all ten letters to crack the <b>final cipher</b>.</li>
-        <li>Clues are <b>3 points</b>; a hint drops it to <b>1</b>. Stuck? You can <b>skip</b> (you'll still see the answer). And don't miss the <b>FAQ Lightning Round</b> for bonus points.</li>
+        <li>Ten core stops carry a <b>letter</b> and reveal <b>why that line matters</b>; collect all ten to crack the <b>final cipher</b>.</li>
+        <li>Five <b>Explore the site</b> stops tour the rest of the pages for points.</li>
+        <li>Clues are <b>3 points</b>; a hint drops it to <b>1</b>; you can always <b>skip</b>. Then take the <b>FAQ Lightning Round</b> against the clock for bonus points.</li>
       </ul>
     </div>
     <h2>Who's playing?</h2>
@@ -196,9 +191,17 @@
         <span class="lang zh">中文</span>
       </button>
       <button class="pbtn" onclick="choose('jasmine')">
-        <span><span class="pname">Jasmine</span><span class="prole">QR · the canonical brand facts</span></span>
+        <span><span class="pname">Jasmine</span><span class="prole">PR · the canonical brand facts</span></span>
         <span class="lang">EN</span>
       </button>
+    </div>
+    <div class="test-row">
+      <span class="test-lbl">Just testing? (for you, not for the team)</span>
+      <div class="test-btns">
+        <button class="tbtn" onclick="choose('test_en')">Test: English hunt</button>
+        <button class="tbtn" onclick="choose('test_zh')">Test: 中文 hunt</button>
+        <button class="tbtn" onclick="choose('test_mix')">Test: mixed (Jasmine's)</button>
+      </div>
     </div>
     <div class="err" id="gateErr"></div>
     <div class="gate-foot">
@@ -206,27 +209,32 @@
     </div>
   </div>
 
-  <!-- GAME -->
   <div id="game" style="display:none;">
     <div class="scorebar">
       <div><span class="pts" id="scoreNum">0</span> <span class="pts-lbl">points</span></div>
       <div style="text-align:right;"><span class="pts-lbl">Player</span><br><strong id="whoami"></strong></div>
     </div>
-    <div class="launch-bar"><button id="lrBtn" onclick="launchLightning()"></button></div>
+    <div class="launch-bar"><button id="lrBtn" onclick="openLightning()"></button></div>
     <div class="progress-rail" id="rail"></div>
     <div class="progress-label" id="progLabel"></div>
     <div id="stops"></div>
   </div>
 
-  <!-- LEADERBOARD -->
   <div id="board" class="board" style="display:none;">
     <h3>Leaderboard</h3>
-    <div class="board-sub">Everyone on one board, English and Chinese sides together. ⚡ = lightning round, ✦ = cipher cracked. Ties broken by who finished first.</div>
+    <div class="board-sub">Everyone on one board, English and Chinese sides together. Lightning round and cipher marked. Ties broken by who finished first.</div>
     <div id="lbRows"></div>
     <div class="refresh-row"><button class="ghost" id="refreshBtn">Refresh standings</button></div>
   </div>
 
-  <p class="note">Built for the Harland management team. Progress saves on this device. Same leaderboard for all three of you.</p>
+  <p class="note">Built for the Harland management team. Progress saves on this device. Same leaderboard for all of you.</p>
+</div>
+
+<div id="lr-modal" class="lr-overlay" style="display:none;">
+  <div class="lr-box">
+    <button class="lr-close" onclick="closeLightning()">✕</button>
+    <div id="lr-content"></div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -236,23 +244,18 @@ const SUPA_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIs
 const supa = (window.supabase && window.supabase.createClient)
   ? window.supabase.createClient(SUPA_URL, SUPA_ANON)
   : null;
-
-// ===========================================================================
-// THE HARLAND SITE HUNT v4. Bilingual, philosophy-and-messaging focus.
-// + fireworks, skip/reveal, FAQ Lightning Round mini-game.
-// All answers locked against live crawled EN and ZH copy. Letters spell HARLANDWAY.
-// ===========================================================================
-const EN = "https://harland-official-website.pages.dev";
-const ZH = "https://harland-official-website.pages.dev/zh-hant";
-
+const EN = "https://harland.com.tw";
+const ZH = "https://harland.com.tw/zh-hant";
 const PLAYERS = {
   glen: { name: "Mr. Glen", lang: "en", track: "philosophy" },
   msm:  { name: "Ms. M",    lang: "en", track: "philosophy" },
   ruby: { name: "Ms. Ruby", lang: "zh", track: "philosophy" },
-  jasmine: { name: "Jasmine", lang: "en", track: "canon" }
+  jasmine: { name: "Jasmine", lang: "en", track: "canon" },
+  test_en:  { name: "Test (you)", lang: "en", track: "philosophy" },
+  test_zh:  { name: "Test (you)", lang: "zh", track: "philosophy" },
+  test_mix: { name: "Test (you)", lang: "en", track: "canon" }
 };
-
-const PHIL_STOPS = [
+const PHIL_CORE = [
   { letter:"H",
     en:{ title:"Eight in Ten", where:"Homepage", path:"/",
       clue:"Start on the <strong>homepage</strong>. Harland runs no ads and no referral incentives, yet a striking share of new students still arrive the same way. <strong>What fraction of new students come through a parent's referral?</strong> (e.g. \"X in ten.\")",
@@ -266,36 +269,36 @@ const PHIL_STOPS = [
 
   { letter:"A",
     en:{ title:"The Pedagogy, Named", where:"Programs → English and Writing", path:"/programs/english-and-writing/",
-      clue:"On the <strong>English and Writing</strong> hub, Harland names its teaching method outright, more than once. Skills grow through the substance students engage with, not isolated drills. <strong>Name the three-word pedagogy.</strong> (Lowercase, as written.)",
-      hint:"\"Why Harland,\" point No. 02. Three words, hyphenated in the middle.",
+      clue:"On the <strong>English and Writing</strong> hub, Harland names its teaching method outright. Skills grow through the substance students engage with, not isolated drills. <strong>Name the three-word pedagogy.</strong> (Lowercase, as written.)",
+      hint:"The FAQ \"What is content-based learning?\" Three words, hyphenated in the middle.",
       reveal:"content-based learning", accept:["contentbasedlearning"] },
     zh:{ title:"教學法的名字", where:"課程 → 英文與寫作", path:"/programs/english-and-writing/",
       clue:"在<strong>英文與寫作</strong>課程頁，Harland 明確點出自己的教學法。能力是透過學生所接觸的內容本身發展出來的，而非孤立的反覆練習。這套教學法在中文網站上稱為什麼？<strong>請填中文名稱。</strong>",
-      hint:"看常見問答區「什麼是內容導向的學習？」。描述以內容為核心的教學。",
+      hint:"看常見問答「什麼是內容導向的學習？」。描述以內容為核心的教學。",
       reveal:"內容導向的學習", accept:["內容導向學習","內容導向的學習","內容導向","以內容為導向的學習"] },
     takeaway:"Content-based learning (內容導向的學習) is our single most distinctive idea. Students learn English through real subject matter, not vocabulary lists. If a parent remembers one thing about how we teach, it should be this." },
 
   { letter:"R",
     en:{ title:"The Curriculum Spine", where:"English and Writing (same hub)", path:"/programs/english-and-writing/",
       clue:"Same hub. Every Harland program is built on one specific set of academic standards as its backbone, with IB, AP, IELTS and SAT pathways branching off. <strong>Name the standards that form the curriculum spine.</strong>",
-      hint:"\"Why Harland,\" No. 01. A US framework. Think \"Common.\"",
+      hint:"A US framework. Think \"Common.\"",
       reveal:"US Common Core (State Standards)", accept:["uscommoncore","commoncore","uscommoncorestandards","commoncorestandards","uscommoncorestatestandards"] },
     zh:{ title:"課程的主幹", where:"英文與寫作（同一頁）", path:"/programs/english-and-writing/",
       clue:"同一頁。Harland 每一套課程，都以一組特定的學術標準作為主幹，再延伸出 IB、AP、IELTS 與 SAT 的路徑。<strong>請說出作為課程主幹的那組標準名稱。</strong>（中英皆可。）",
-      hint:"常見問答提到課程主幹是「美國共同核心州立標準」（US Common Core）。",
+      hint:"課程主幹是「美國共同核心州立標準」（US Common Core）。",
       reveal:"美國共同核心州立標準（US Common Core）", accept:["美國共同核心","共同核心","美國共同核心州立標準","uscommoncore","commoncore"] },
     takeaway:"US Common Core is the spine under everything. It signals we're not improvising; there's a recognized academic structure beneath the personalization. Structure plus flexibility is the pitch." },
 
   { letter:"L",
-    en:{ title:"Where Glen's Students Go Further", where:"Programs → Coaching and Competitions", path:"/programs/coaching-and-competitions/",
-      clue:"On <strong>Coaching and Competitions</strong>, one performance competition is named as the primary focus of the Performance and Speaking pathway, and the page notes one of our coaches has served as a judge for it. <strong>Name that competition.</strong>",
+    en:{ title:"Where Students Go Further", where:"Programs → Coaching and Competitions", path:"/programs/coaching-and-competitions/",
+      clue:"On <strong>Coaching and Competitions</strong>, one performance competition anchors the Performance and Speaking pathway, and the page notes one of our coaches has served as a judge for it. <strong>Name that competition.</strong>",
       hint:"Three words, all capitalized: W__ M__ G__. The headline event for performance and speaking.",
       reveal:"The World Monologue Games", accept:["worldmonologuegames","theworldmonologuegames","wmg"] },
     zh:{ title:"學生在這裡走得更遠", where:"課程 → 競賽指導", path:"/programs/coaching-and-competitions/",
       clue:"在<strong>競賽指導</strong>頁，表演與口語競賽路徑以一項表演競賽為主要重心，頁面並提到我們其中一位教練曾擔任該競賽的評審。<strong>請說出這項競賽的名稱。</strong>（英文名稱即可。）",
       hint:"三個英文字：World Monologue Games。表演與口語競賽的招牌賽事。",
       reveal:"World Monologue Games（世界獨白大賽）", accept:["worldmonologuegames","theworldmonologuegames","wmg","世界獨白大賽"] },
-    takeaway:"Coaching and Competitions is Mr. Glen's house. The message: our coaches have competed and judged at the level students are aiming for, so they coach from real experience, not theory." },
+    takeaway:"Coaching and Competitions is where ambitious students go beyond the curriculum. The message: our coaches have competed and judged at the level students aim for, so they coach from real experience, not theory." },
 
   { letter:"A",
     en:{ title:"Substitutes Come From Inside", where:"FAQs (footer → Resources → FAQs)", path:"/faqs/",
@@ -310,11 +313,11 @@ const PHIL_STOPS = [
 
   { letter:"N",
     en:{ title:"Who We Turn Away", where:"FAQs (Admissions section)", path:"/faqs/",
-      clue:"Still on the <strong>FAQs</strong>, Harland is honest that it sometimes declines applicants, and not for academic reasons. A student doesn't need to be advanced to be admitted, but they do need the right disposition. <strong>Name any one of the three qualities the page says a declined student lacks.</strong> (attitude, respectfulness, or maturity.)",
+      clue:"Still on the <strong>FAQs</strong>, Harland is honest that it sometimes declines applicants, and not for academic reasons. A student doesn't need to be advanced to be admitted, but they do need the right disposition. <strong>Name any one of the three qualities the page says a declined student is missing.</strong>",
       hint:"See \"Do you ever decline students?\" The three are attitude, respectfulness, and maturity. Any one works.",
       reveal:"attitude, respectfulness, or maturity", accept:["attitude","respectfulness","respect","maturity"] },
     zh:{ title:"我們會婉拒誰", where:"常見問題（入學部分）", path:"/faqs/",
-      clue:"同樣在<strong>常見問題</strong>頁，Harland 坦白說明有時會婉拒申請者，而且不是因為學業程度。學生不需要程度超前才能入學，但需要具備對的特質。<strong>頁面說被婉拒的學生缺少哪三項特質之一？請說出其中一項。</strong>（態度、尊重程度，或成熟度。）",
+      clue:"同樣在<strong>常見問題</strong>頁，Harland 坦白說明有時會婉拒申請者，而且不是因為學業程度。學生不需要程度超前才能入學，但需要具備對的特質。<strong>頁面說被婉拒的學生缺少哪三項特質？請說出其中一項。</strong>",
       hint:"看「Harland 會婉拒學員嗎？」。三項是態度、尊重程度、成熟度。任一即可。",
       reveal:"態度、尊重程度，或成熟度", accept:["態度","尊重","尊重程度","成熟","成熟度","respectfulness","attitude","maturity"] },
     takeaway:"We say no, and we say why. Turning students away on attitude rather than ability tells families this is a serious place that protects the learning environment. Selectivity is part of the value." },
@@ -322,60 +325,48 @@ const PHIL_STOPS = [
   { letter:"D",
     en:{ title:"Outgrowing Us", where:"Our Story", path:"/our-story/",
       clue:"On <strong>Our Story</strong>, the founder describes a teacher who knew a student in Taipei at age nine and still teaches them years later in another city. <strong>Which city is the student in by age thirteen?</strong>",
-      hint:"Section V. The sentence pairs Taipei at nine with this city at thirteen. One of our eight countries.",
+      hint:"The sentence pairs Taipei at nine with this city at thirteen. One of our eight countries.",
       reveal:"Singapore", accept:["singapore"] },
     zh:{ title:"孩子超越我們", where:"關於 Harland", path:"/our-story/",
       clue:"在<strong>關於 Harland</strong>頁，創辦人描述一位老師在台北認識一個九歲的學生，多年後在另一座城市仍持續教導同一位學生（當時十三歲）。<strong>這位學生十三歲時人在哪座城市？</strong>",
-      hint:"看第五節。句子把「台北，九歲」與這座城市「十三歲」並列。是我們服務的八個國家之一。",
+      hint:"句子把「台北，九歲」與這座城市「十三歲」並列。是我們服務的八個國家之一。",
       reveal:"新加坡", accept:["新加坡","singapore"] },
     takeaway:"Our measure of success is the student who outgrows us. We're explicit that families step down or leave, and that this is the right outcome. We sell independence, not dependency." },
 
   { letter:"W",
     en:{ title:"Two Components, One Grade", where:"FAQs (Report Cards & Assessment)", path:"/faqs/",
-      clue:"Back to the <strong>FAQs</strong>, the report card grade has two parts. Eighty percent is the major writing project per unit. The other twenty percent comes from five core attributes scored each lesson. <strong>Name any one of those five attributes.</strong> (Adaptability, Attitude, Diligence, Respectfulness, or Resilience.)",
+      clue:"Back to the <strong>FAQs</strong>, the report card grade has two parts. Eighty percent is the major writing project per unit. The other twenty percent comes from five core attributes scored every lesson. <strong>Name any one of those five attributes.</strong>",
       hint:"\"What's evaluated in the report card?\" The five: Adaptability, Attitude, Diligence, Respectfulness, Resilience. Any one.",
       reveal:"Adaptability, Attitude, Diligence, Respectfulness, or Resilience", accept:["adaptability","attitude","diligence","respectfulness","respect","resilience"] },
     zh:{ title:"兩個部分，一個成績", where:"常見問題（成績單與學習評量）", path:"/faqs/",
-      clue:"回到<strong>常見問題</strong>頁，成績單的分數由兩部分組成。八成來自每個單元的主要寫作專案，另外兩成來自每堂課評分的五項核心特質。<strong>請說出這五項特質中的任何一項。</strong>（適應力、態度、勤奮、尊重、韌性。）",
-      hint:"看「成績單上評量的是什麼？」。五項：適應力、態度、勤奮、尊重、韌性。任一即可。",
-      reveal:"適應力、態度、勤奮、尊重、韌性", accept:["適應力","態度","勤奮","用功","尊重","韌性","adaptability","attitude","diligence","respectfulness","resilience"] },
-    takeaway:"We grade character, on purpose. Putting 20% on attributes like resilience and respect tells families we care how a child works, not just what they produce. Habits of mind outlast any single essay." },
+      clue:"回到<strong>常見問題</strong>頁，成績單的分數由兩部分組成。八成來自每個單元的大型寫作專題，另外兩成則來自每堂課評分的五項核心特質。<strong>請說出這五項特質之一。</strong>",
+      hint:"看「成績單評量什麼？」。五項是：適應力、態度、勤奮、尊重、韌性。任一即可。",
+      reveal:"適應力、態度、勤奮、尊重、韌性", accept:["適應力","態度","勤奮","用功","尊重","韌性","resilience","attitude"] },
+    takeaway:"We grade character, not just output. Twenty percent on attributes like resilience and respect tells parents we're shaping how a child works, not just what they produce. That's the whole-student promise." },
 
   { letter:"A",
     en:{ title:"The 14-Day Promise", where:"Terms (footer → Resources → Terms)", path:"/terms/",
-      clue:"On the <strong>Terms</strong> page, every enrollment is protected by a named guarantee from the first lesson: a refund for any lessons not yet attended within a set window, no reason required. <strong>What is this guarantee called?</strong> (Two words.)",
-      hint:"Policy 17. Two words, the second is a defensive object you'd carry. The \"Harland ______.\"",
+      clue:"On the <strong>Terms</strong> page, Harland names a specific guarantee for new families: if the fit isn't right early on, there's a defined window to step away. <strong>What is this guarantee called?</strong> (Two words, and one of them is \"Harland.\")",
+      hint:"Look for the \"Harland ______.\" A 14-day satisfaction guarantee.",
       reveal:"The Harland Shield", accept:["harlandshield","theharlandshield","shield"] },
-    zh:{ title:"十四天的承諾", where:"使用條款（頁尾 → 資源 → 使用條款）", path:"/terms/",
-      clue:"在<strong>使用條款</strong>頁，每一筆報名從第一堂課起都受到一項具名保障：在一定期間內，尚未上過的課程皆可退費，無需任何理由。<strong>這項保障叫什麼名字？</strong>（英文，兩個字。）",
-      hint:"看第 17 條。中文網站上沿用英文名稱「Harland Shield」，亦即十四天退費保障。",
-      reveal:"Harland Shield", accept:["harlandshield","theharlandshield","shield","十四天退費保障"] },
-    takeaway:"The first lesson is where we earn trust. The Harland Shield removes the risk of trying us. It reframes the decision from \"will this work?\" to \"let's find out, on us.\"" },
+    zh:{ title:"14 天的承諾", where:"服務條款（頁尾 → 資源 → 條款）", path:"/terms/",
+      clue:"在<strong>服務條款</strong>頁，Harland 為新家庭提供一項明確的保障：若一開始就覺得不適合，會有一段明確的期間可以退出。<strong>這項保障叫什麼名字？</strong>（兩個字，其中一個是「Harland」。）",
+      hint:"找「Harland ______」。一項 14 天的滿意保障。",
+      reveal:"Harland Shield（賀蘭德保障）", accept:["harlandshield","theharlandshield","shield","賀蘭德保障"] },
+    takeaway:"The Harland Shield removes the risk of starting. A 14-day guarantee tells families we're confident enough to stand behind the fit. It lowers the barrier to that first yes." },
 
   { letter:"Y",
-    en:{ title:"Three Ways We Help", where:"FAQs (AP, IB & Test Prep)", path:"/faqs/",
-      clue:"Final stop. On the <strong>FAQs</strong>, Harland is honest that it is not an authorised AP or IB delivery school. Instead it supports AP and IB students in three distinct modes. One is intensive exam prep; one is primary instruction for homeschoolers. <strong>What is the third mode</strong>, the one where Harland deepens and supplements what a student's own school already teaches? (Answer: alongside their ______.)",
-      hint:"\"Do you teach AP and IB courses?\" The modes: alongside the school programme, intensive exam prep, and primary instruction. The answer is the school (programme).",
-      reveal:"Alongside their school programme", accept:["schoolprogramme","schoolprogram","alongsideschool","theirschool","school","alongsidetheirschool","schoolprogrammealongside","alongsidetheschoolprogramme"] },
-    zh:{ title:"我們協助的三種方式", where:"常見問題（AP、IB 與應試準備）", path:"/faqs/",
-      clue:"最後一站。在<strong>常見問題</strong>頁，Harland 坦白說明自己並非經授權的 AP 或 IB 辦學學校，而是以三種不同的方式協助 AP 與 IB 學生。其中一種是密集的考試準備，一種是為自學生提供主要教學。<strong>第三種方式是什麼？</strong>也就是 Harland 深化並補強學生自己學校所教內容的那一種。（答案：在學生的 ______ 之外並行。）",
-      hint:"看「Harland 有教 AP 與 IB 課程嗎？」。三種：搭配學校課程、密集考試準備、主要教學。答案是「學校課程」（或「學校」）。",
-      reveal:"搭配學校課程（在學校課程之外並行）", accept:["學校課程","學校","搭配學校課程","在學校課程之外","校內課程","schoolprogramme","school"] },
-    takeaway:"We're honest that we're not an authorised AP/IB school, and we turn that into clarity: three clear modes of support. Honesty about what we are not is what makes families trust what we say we are." }
+    en:{ title:"Three Ways We Help", where:"FAQs (Programs & Curriculum)", path:"/faqs/",
+      clue:"Last core stop. On the <strong>FAQs</strong>, Harland describes three ways it can teach an AP or IB subject: alongside a student's school, as focused exam prep, or as their primary instruction for homeschooling families. Two of those run in parallel with the student's regular ______. <strong>What one word completes that, the place Harland teaches alongside?</strong>",
+      hint:"See the AP and IB questions. The word is \"school\" (their regular day school).",
+      reveal:"school", accept:["school","dayschool","theirschool","regularschool"] },
+    zh:{ title:"三種協助方式", where:"常見問題（課程與教學內容）", path:"/faqs/",
+      clue:"最後一個核心關卡。在<strong>常見問題</strong>頁，Harland 說明它能以三種方式教 AP 或 IB 科目：與學生的學校並行、作為密集應試準備、或作為主要授課（適合自學家庭）。其中兩種會與學生原本的「______」並行進行。<strong>哪個詞完成這句話？Harland 是與什麼並行教學？</strong>",
+      hint:"看 AP 與 IB 相關問題。答案是「學校」（學生原本就讀的學校）。",
+      reveal:"學校（學校課程）", accept:["學校","學校課程","school"] },
+    takeaway:"We fit around the life a family already has, three ways. Whether we supplement school, prep for an exam, or teach the whole subject, the message is flexibility: Harland slots in, it doesn't demand a family rebuild everything." }
 ];
-
-const PHIL_CIPHER = {
-  en:{ prompt:"Ten stops, ten letters, in order. Rearrange them into the two-word phrase that runs under this whole site: the founder's answer to what we do instead of playing the marketing game. <strong>What's the phrase?</strong>",
-    hint:"In order the letters are H A R L A N D W A Y. Two words. The first is the company name.",
-    title:"The Harland Way", win:"Cracked it. \"The work, not the game\" is the spine of every page you just walked. That's the philosophy we're putting in front of the world. Nicely done." },
-  zh:{ prompt:"十站，十個字母，依序排列。把它們重組成貫穿整個網站的兩個英文字：創辦人對「我們不玩行銷遊戲，那我們做什麼」的回答。<strong>這個詞組是什麼？</strong>（英文作答。）",
-    hint:"依序的字母是 H A R L A N D W A Y。兩個英文字，第一個是公司名稱。",
-    title:"The Harland Way", win:"破解了。「做真正的功夫，不玩遊戲」是您剛走過每一頁的核心，也是我們要呈現給世界的理念。做得好。" },
-  accept:["harlandway","theharlandway"]
-};
-
-// ---- Jasmine's track: canonical brand facts (for representing the brand externally) ----
-const CANON_STOPS = [
+const CANON_CORE = [
   { letter:"O",
     en:{ title:"How We Describe Ourselves", where:"Homepage (footer)", path:"/",
       clue:"Scroll to the <strong>homepage footer</strong>. Harland describes itself in one exact phrase, the one to use whenever you introduce us. We are never a 'school,' never 'boutique,' never 'small.' <strong>What is the phrase Harland uses for what it is?</strong>",
@@ -468,6 +459,63 @@ const CANON_STOPS = [
       hint:"頁尾「LINE ______」。常見問題寫成 @Harlandtw。", reveal:"@Harlandtw", accept:["harlandtw","@harlandtw","lineharlandtw"] },
     takeaway:"@Harlandtw is the official LINE handle, the primary inbound channel for Taiwan families. Put it on every piece of collateral. It's where 'start the conversation' actually happens for most parents." }
 ];
+// ---- Shared "Explore the site" stops: no letter, always link to the English pages ----
+const EXPLORE_STOPS = [
+  { enOnly:true, explore:true,
+    en:{ title:"Behind Every Program", where:"Our Teachers", path:"/our-teachers/",
+      clue:"Time to explore. On <strong>Our Teachers</strong>, every Harland teacher passes through a selection process before they ever teach a student. <strong>How many stages does that selection process have?</strong> (A number.)",
+      hint:"The section 'How we choose our teachers.' Stages numbered 01 to 0?.", reveal:"Four", accept:["4","four"] },
+    zh:{ title:"每一堂課的背後", where:"師資團隊（Our Teachers）", path:"/our-teachers/",
+      clue:"開始探索。在<strong>師資團隊（Our Teachers）</strong>頁，每位 Harland 老師在教學生之前，都會經過一套甄選流程。<strong>這套甄選流程共有幾個階段？</strong>（填數字。）",
+      hint:"看「How we choose our teachers」段落，階段從 01 編到 0?。", reveal:"四", accept:["4","四"] },
+    takeaway:"We hire hard so families don't have to vet teachers themselves. The four-stage process is proof the bar is high. When you talk about our faculty, lead with how few applicants make it through." },
+
+  { enOnly:true, explore:true,
+    en:{ title:"Read by a Real Person", where:"Careers (footer → Resources)", path:"/career/",
+      clue:"On the <strong>Careers</strong> page, the very first line promises that every tutor application is read by a real ______, not screened by a machine. <strong>What word finishes that promise?</strong>",
+      hint:"Top of the page: 'Every application is read by a real ______.'", reveal:"person", accept:["person","human","realperson"] },
+    zh:{ title:"由真人閱讀", where:"人才招募（Careers，頁尾 → 資源）", path:"/career/",
+      clue:"在<strong>人才招募（Careers）</strong>頁，最上方第一句承諾：每一份應徵申請都由真人（a real ______）親自閱讀，而非交給機器篩選。<strong>頁面上用哪個英文字完成這句承諾？</strong>",
+      hint:"頁面最上方：「Every application is read by a real ______」。", reveal:"person", accept:["person","human","realperson"] },
+    takeaway:"Even our hiring is human. 'Read by a real person' signals the same care we give students. It's a small line that tells teachers, and parents, what kind of place this is." },
+
+  { enOnly:true, explore:true,
+    en:{ title:"A Third Register", where:"The Harland Review", path:"/harland-review/",
+      clue:"On <strong>The Harland Review</strong>, Harland notes most parents find only two kinds of writing: school marketing, or forum posts. The Review positions itself as a third ______. <strong>What is that word?</strong>",
+      hint:"'The Harland Review is a third ______.' It means a level or style of writing.", reveal:"register", accept:["register","thirdregister"] },
+    zh:{ title:"第三種文體", where:"The Harland Review", path:"/harland-review/",
+      clue:"在<strong>The Harland Review</strong>頁，Harland 說多數家長只會看到兩種文字：學校的行銷文案，或論壇貼文。而 The Review 把自己定位為第三種「register」（文體／層次）。<strong>頁面上用的是哪個英文字？</strong>",
+      hint:"「The Harland Review is a third ______」。指一種寫作的層次或文體。", reveal:"register", accept:["register","thirdregister"] },
+    takeaway:"The Review isn't marketing and isn't noise: it's a third register, fact-checked and source-cited. That's the line that explains why parents (and press) can trust it." },
+
+  { enOnly:true, explore:true,
+    en:{ title:"Fit, Not Rank", where:"Explore Schools", path:"/explore-schools/",
+      clue:"On <strong>Explore Schools</strong>, Harland's whole approach to school guides rests on choosing by fit, not ______. <strong>What one word completes it?</strong>",
+      hint:"The headline: 'Choosing by fit, not ____.' The opposite of fit in school comparisons.", reveal:"rank", accept:["rank","ranking","rankings"] },
+    zh:{ title:"看適合，不看排名", where:"探索學校（Explore Schools）", path:"/explore-schools/",
+      clue:"在<strong>探索學校（Explore Schools）</strong>頁，Harland 對學校指南的整套立場是：以「適合」為準，而不是看「______」。<strong>頁面英文標題用的是哪個英文字？</strong>（fit, not ____）",
+      hint:"英文標題：「Choosing by fit, not ____」。和「適合」相對、學校比較常用的那個字。", reveal:"rank", accept:["rank","ranking","rankings"] },
+    takeaway:"Fit over rank is the position that lets us talk honestly about schools we don't run. It reframes the parent's question from 'which is best?' to 'which is right for my child?'" },
+
+  { enOnly:true, explore:true,
+    en:{ title:"A Thinking Partner", where:"Programs → AI for Education", path:"/ai-for-education/",
+      clue:"On the new <strong>AI for Education</strong> page, Harland coaches students to use AI as a ______ partner, not an answer machine to cheat with. <strong>What is the missing word?</strong>",
+      hint:"Repeated all over the page: AI as a '______ partner.' What you do with your brain.", reveal:"thinking", accept:["thinking","thinkingpartner"] },
+    zh:{ title:"思考的夥伴", where:"課程 → AI for Education", path:"/ai-for-education/",
+      clue:"在全新的<strong>AI for Education</strong>頁，Harland 教學生把 AI 當成「______ partner」（思考的夥伴），而不是拿來作弊的答案機器。<strong>缺少的那個英文字是什麼？</strong>",
+      hint:"整頁反覆出現：AI 是一個「______ partner」。和「用腦思考」有關的字。", reveal:"thinking", accept:["thinking","thinkingpartner"] },
+    takeaway:"Our AI stance is the honest one: AI as a thinking partner, never a cheating tool. In an AI-anxious moment for parents, this is exactly the message that reassures them." }
+];
+
+const PHIL_CIPHER = {
+  en:{ prompt:"Ten core stops, ten letters, in order. Rearrange them into the two-word phrase that runs under this whole site: the founder's answer to what we do instead of playing the marketing game. <strong>What's the phrase?</strong>",
+    hint:"In order they spell HARLANDWAY. Two words: ____ ____.",
+    title:"The Harland Way", win:"That's it. The Harland Way: word of mouth, content-based learning, students who outgrow us. Everything you collected is one idea wearing ten hats." },
+  zh:{ prompt:"十個核心關卡，十個字母，依序排列。把它們重組成貫穿整個網站的那個說法（兩個英文字），也就是創辦人對「不玩行銷遊戲，那我們做什麼」的回答。<strong>這個說法是什麼？</strong>（英文作答。）",
+    hint:"依序排列是 HARLANDWAY。兩個英文字：____ ____。",
+    title:"The Harland Way", win:"就是這個。The Harland Way：口耳相傳、內容導向的學習、終將超越我們的學生。你蒐集到的一切，都是同一個理念的十種面貌。" },
+  accept:["harlandway","theharlandway"]
+};
 
 const CANON_CIPHER = {
   en:{ prompt:"Ten canonical facts, ten letters, in order. Rearrange them into the phrase from the homepage hero, the four words that capture the whole model. <strong>What's the phrase?</strong>",
@@ -478,79 +526,144 @@ const CANON_CIPHER = {
     title:"One Student at a Time", win:"這就是主視覺那句話，四個英文字道盡整個承諾：一位學生、一位老師、全心投入。所有品牌訊息都可以圍繞這句話來建立。" },
   accept:["onestudentatatime","onestudent"]
 };
-// Jasmine's canonical hunt alternates between the English and Chinese sites, stop by stop.
-const CANON_MIX = ["en","zh","en","zh","en","zh","en","zh","en","zh"];
+
+// Jasmine's canonical hunt alternates English/Chinese across the 10 core stops; the 5 explore stops are English.
+const CANON_MIX = ["en","zh","en","zh","en","zh","en","zh","en","zh","en","en","en","en","en"];
 
 const GOODJOB = {
-  en:["Nailed it!","Brilliant!","That's the one!","Spot on!","Boom!","Yes! Clean.","Textbook.","On the money.","Too easy for you."],
-  zh:["答對了！","漂亮！","就是這個！","太厲害了！","完全正確！","神準！","這題難不倒您！","正中紅心！"]
+  en:["Nailed it!","Beautiful.","That's it!","Sharp.","Yes!","Spot on.","Brilliant.","Got it!"],
+  zh:["答對了！","漂亮！","就是這個！","厲害！","沒錯！","正中紅心！","太棒了！","答對囉！"]
 };
 
-// ---- FAQ Lightning Round ----
 const LIGHTNING = {
-  en:{ launch:"⚡ FAQ Lightning Round", intro:"Seven parent questions. For each, tap the FAQ section where it lives. This is the map your team needs cold. Up to 7 bonus points.",
+  en:{
+    launch:"⚡ FAQ Lightning Round",
+    intro:"A parent asks a question. Before the bar runs out, tap the FAQ section it belongs in. Five questions.",
     cats:["About Harland","Programs & Curriculum","Admissions","Academics & Teaching","Scheduling & Logistics","Pricing & Value","AP, IB & Test Prep","Adult Learners","Bilingual & Language","Report Cards & Assessment"],
-    q:[ {text:"“My child's teacher is sick this week. Who covers the lesson?”", a:3},
-        {text:"“What's your cancellation policy?”", a:4},
-        {text:"“Are you an authorised IB school?”", a:6},
-        {text:"“If Harland isn't the right fit, can we get a refund?”", a:5},
-        {text:"“When do report cards come out?”", a:9},
-        {text:"“I don't speak English. Can I still enroll my child?”", a:8},
-        {text:"“Do you teach adults?”", a:7} ],
-    qof:(a,b)=>`Question ${a} of ${b}`, round:"Round score", correct:"Correct!", wrong:(c)=>`That one lives under “${c}.”`,
-    doneTitle:"Round over.", doneSub:(s,n)=>`You mapped ${s} of ${n} correctly. ${s===n?'Perfect run.':''}`, best:(b)=>`Best: ${b}/7`,
-    replay:"Play again", back:"Back to the hunt" },
-  zh:{ launch:"⚡ 常見問題閃電題", intro:"七個家長問題。每一題，點出它屬於常見問題的哪個分類。這是您的團隊需要熟到反射的地圖。最多 7 分加分。",
+    q:[
+      {text:"\u201cMy child's teacher is sick this week. Who teaches the lesson?\u201d", a:3},
+      {text:"\u201cWe're going to Japan for two weeks. What's your cancellation policy?\u201d", a:4},
+      {text:"\u201cIs Harland an authorized IB World School?\u201d", a:6},
+      {text:"\u201cIf it isn't the right fit, can we get our money back?\u201d", a:5},
+      {text:"\u201cWhen do we get a report card, and what's on it?\u201d", a:9}
+    ],
+    qof:(n,t)=>`Question ${n} of ${t}`,
+    round:"This round",
+    correct:"Right section.",
+    wrong:(c)=>`That one lives under ${c}.`,
+    timeUp:"Time!",
+    doneTitle:"Lightning round done",
+    doneSub:(s,t)=>`You sorted ${s} of ${t} into the right FAQ section. Knowing the map means you can point any parent to the right answer fast.`,
+    best:(b)=>`Best: ${b}/5`,
+    replay:"Play again",
+    back:"Back to the hunt"
+  },
+  zh:{
+    launch:"⚡ 常見問題閃電題",
+    intro:"家長提出一個問題。在進度條跑完之前，點出它屬於哪個常見問題分類。共五題。",
     cats:["關於 Harland","課程與教學內容","入學流程","教學與師資","排課與細節","學費與價值","AP、IB 與應試準備","成人學員","雙語與語言","成績單與學習評量"],
-    q:[ {text:"「孩子的老師這週生病了，由誰代課？」", a:3},
-        {text:"「取消課程的規定是什麼？」", a:4},
-        {text:"「你們是授權的 IB 學校嗎？」", a:6},
-        {text:"「如果 Harland 不適合，我們可以退費嗎？」", a:5},
-        {text:"「成績單什麼時候發？」", a:9},
-        {text:"「我不會英文，可以幫孩子報名嗎？」", a:8},
-        {text:"「你們有教成人嗎？」", a:7} ],
-    qof:(a,b)=>`第 ${a} 題，共 ${b} 題`, round:"本回合得分", correct:"答對了！", wrong:(c)=>`這題在「${c}」分類底下。`,
-    doneTitle:"回合結束。", doneSub:(s,n)=>`您答對了 ${n} 題中的 ${s} 題。${s===n?'完美！':''}`, best:(b)=>`最佳：${b}/7`,
-    replay:"再玩一次", back:"回到尋寶" }
+    q:[
+      {text:"「孩子的老師這週生病了，這堂課由誰來上？」", a:3},
+      {text:"「我們要去日本兩週，請問請假取消的規定是什麼？」", a:4},
+      {text:"「Harland 是經官方認證的 IB 世界學校嗎？」", a:6},
+      {text:"「如果不適合，我們可以退費嗎？」", a:5},
+      {text:"「我們什麼時候會拿到成績單？上面有哪些內容？」", a:9}
+    ],
+    qof:(n,t)=>`第 ${n} 題，共 ${t} 題`,
+    round:"本回合",
+    correct:"分類正確。",
+    wrong:(c)=>`這題屬於「${c}」。`,
+    timeUp:"時間到！",
+    doneTitle:"閃電題完成",
+    doneSub:(s,t)=>`你把 ${t} 題中的 ${s} 題分到了正確的常見問題分類。熟悉這張地圖，就能很快幫任何家長指到正確答案。`,
+    best:(b)=>`最佳：${b}/5`,
+    replay:"再玩一次",
+    back:"回到尋寶"
+  }
 };
-
 const UI = {
-  en:{ stopOf:(a,b)=>`Stop ${a} of ${b}`, solved:"Solved", skippedTag:"Skipped", pts:(n)=>`${n} pt${n===1?'':'s'}`,
-    hintUsed:"1 pt (hint used)", zeroPts:"0 pts (skipped)", openPage:"open the page ↗",
-    needHint:"Need a hint? (drops this clue to 1 pt)", hintShown:"Hint (shown)", check:"Check",
-    skip:"Stuck? Skip this one", typeFirst:"Type something first.", wrong:"Not quite. Re-read that part of the page, or take the hint.",
-    letterEarned:(L)=>`+ letter “${L}”`, whyMatters:"Why this matters", answerWas:(a)=>`The answer was: <b>${a}</b>`,
-    railAll:"All ten solved. The cipher is below.", railMid:(c,n,s)=>`Stop ${c} of ${n} · ${s} done`, railDone:"Complete. Cipher cracked.",
-    finalCipher:"The Final Cipher", cipherSolved:"Final cipher · Solved", solveBtn:"Solve",
-    cipherPlaceholder:"The two-word phrase", cipherWrong:"Not it. Rearrange the ten letters, two words.",
-    cipherNeedHint:"Need a hint? (drops to 2 pts)", answerPlaceholder:"Type your answer",
-    doneTitle:"You made it through.", doneBody:"That's the philosophy we're putting in front of the world." },
-  zh:{ stopOf:(a,b)=>`第 ${a} 站，共 ${b} 站`, solved:"已解開", skippedTag:"已跳過", pts:(n)=>`${n} 分`,
-    hintUsed:"1 分（已用提示）", zeroPts:"0 分（已跳過）", openPage:"開啟頁面 ↗",
-    needHint:"需要提示嗎？（此題降為 1 分）", hintShown:"提示（已顯示）", check:"確認",
-    skip:"卡住了？跳過這一題", typeFirst:"請先輸入答案。", wrong:"還不對。再讀一次頁面的相關段落，或看看提示。",
-    letterEarned:(L)=>`+ 字母「${L}」`, whyMatters:"為什麼這很重要", answerWas:(a)=>`答案是：<b>${a}</b>`,
-    railAll:"十站全部解開，最後的密碼就在下方。", railMid:(c,n,s)=>`第 ${c} 站，共 ${n} 站 · 已完成 ${s} 站`, railDone:"完成。密碼已破解。",
-    finalCipher:"最後的密碼", cipherSolved:"最後的密碼 · 已破解", solveBtn:"破解",
-    cipherPlaceholder:"兩個英文字的詞組", cipherWrong:"不是這個。把十個字母重新排列，兩個英文字。",
-    cipherNeedHint:"需要提示嗎？（降為 2 分）", answerPlaceholder:"輸入您的答案",
-    doneTitle:"您完成了。", doneBody:"這就是我們要呈現給世界的理念。" }
+  en:{
+    stopOf:(n,t)=>`Stop ${n} of ${t}`,
+    solved:"solved", skippedTag:"skipped",
+    pts:(n)=>`${n} pts`,
+    hintUsed:"1 pt · hint used",
+    zeroPts:"0 pts",
+    openPage:"open the page \u2197",
+    needHint:"Need a hint? (drops this to 1 pt)",
+    hintShown:"Hint shown",
+    check:"Check",
+    skip:"Skip this one (reveal the answer, 0 pts)",
+    typeFirst:"Type your answer first.",
+    wrong:"Not quite. Try again, or open the hint.",
+    letterEarned:(L)=>`\u00b7 letter \u201c${L}\u201d`,
+    exploreTag:"\u00b7 explore",
+    exploreEyebrow:"Explore the site \u00b7 bonus",
+    whyMatters:"Why this matters",
+    answerWas:(a)=>`Skipped. The answer was: ${a}`,
+    railMid:(d,t)=>`${d} of ${t} stops solved`,
+    railDone:"All stops solved. The final cipher is unlocked below.",
+    finalCipher:"The Final Cipher",
+    cipherSolvedTag:"cracked \u2726",
+    solveBtn:"Crack it",
+    cipherPlaceholder:"The phrase\u2026",
+    cipherWrong:"Not the phrase yet. Open the hint if you need it.",
+    cipherNeedHint:"Need a hint? (drops the cipher to 2 pts)",
+    cipherHintShown:"Hint shown",
+    answerPlaceholder:"Type your answer\u2026",
+    correct:(L)=>`Correct! You earned the letter \u201c${L}.\u201d`,
+    correctNoLetter:"Correct! Read why it matters, then the next stop unlocks below.",
+    doneTitle:"You finished the hunt.",
+    doneBody:"Every stop, every letter, the cipher, the lightning round. You've seen the whole site and the thinking under it. Now go put those words in front of the world."
+  },
+  zh:{
+    stopOf:(n,t)=>`\u7b2c ${n} \u7ad9\uff0c\u5171 ${t} \u7ad9`,
+    solved:"\u5df2\u89e3\u958b", skippedTag:"\u5df2\u7565\u904e",
+    pts:(n)=>`${n} \u5206`,
+    hintUsed:"1 \u5206 \u00b7 \u5df2\u7528\u63d0\u793a",
+    zeroPts:"0 \u5206",
+    openPage:"\u958b\u555f\u9801\u9762 \u2197",
+    needHint:"\u9700\u8981\u63d0\u793a\u55ce\uff1f\uff08\u5206\u6578\u964d\u70ba 1 \u5206\uff09",
+    hintShown:"\u63d0\u793a\u5df2\u986f\u793a",
+    check:"\u78ba\u8a8d",
+    skip:"\u7565\u904e\u9019\u4e00\u984c\uff08\u986f\u793a\u7b54\u6848\uff0c0 \u5206\uff09",
+    typeFirst:"\u8acb\u5148\u8f38\u5165\u7b54\u6848\u3002",
+    wrong:"\u9084\u5dee\u4e00\u9ede\u3002\u518d\u8a66\u4e00\u6b21\uff0c\u6216\u6253\u958b\u63d0\u793a\u3002",
+    letterEarned:(L)=>`\u00b7 \u5b57\u6bcd\u300c${L}\u300d`,
+    exploreTag:"\u00b7 \u63a2\u7d22",
+    exploreEyebrow:"\u63a2\u7d22\u7db2\u7ad9 \u00b7 \u52a0\u5206\u984c",
+    whyMatters:"\u70ba\u4ec0\u9ebc\u9019\u5f88\u91cd\u8981",
+    answerWas:(a)=>`\u5df2\u7565\u904e\u3002\u7b54\u6848\u662f\uff1a${a}`,
+    railMid:(d,t)=>`\u5df2\u89e3\u958b ${t} \u7ad9\u4e2d\u7684 ${d} \u7ad9`,
+    railDone:"\u6240\u6709\u95dc\u5361\u90fd\u89e3\u958b\u4e86\uff0c\u6700\u5f8c\u7684\u5bc6\u78bc\u984c\u5df2\u5728\u4e0b\u65b9\u89e3\u9396\u3002",
+    finalCipher:"\u6700\u5f8c\u7684\u5bc6\u78bc\u984c",
+    cipherSolvedTag:"\u5df2\u7834\u89e3 \u2726",
+    solveBtn:"\u7834\u89e3",
+    cipherPlaceholder:"\u90a3\u53e5\u8a71\u2026",
+    cipherWrong:"\u9084\u4e0d\u662f\u90a3\u53e5\u8a71\u3002\u9700\u8981\u7684\u8a71\u6253\u958b\u63d0\u793a\u3002",
+    cipherNeedHint:"\u9700\u8981\u63d0\u793a\u55ce\uff1f\uff08\u5bc6\u78bc\u984c\u964d\u70ba 2 \u5206\uff09",
+    cipherHintShown:"\u63d0\u793a\u5df2\u986f\u793a",
+    answerPlaceholder:"\u8f38\u5165\u4f60\u7684\u7b54\u6848\u2026",
+    correct:(L)=>`\u7b54\u5c0d\u4e86\uff01\u4f60\u5f97\u5230\u5b57\u6bcd\u300c${L}\u300d\u3002`,
+    correctNoLetter:"\u7b54\u5c0d\u4e86\uff01\u8b80\u4e00\u4e0b\u5b83\u70ba\u4ec0\u9ebc\u91cd\u8981\uff0c\u4e0b\u4e00\u7ad9\u5c31\u6703\u5728\u4e0b\u65b9\u89e3\u9396\u3002",
+    doneTitle:"\u4f60\u5b8c\u6210\u4e86\u6574\u500b\u5c0b\u5bf6\u3002",
+    doneBody:"\u6bcf\u4e00\u7ad9\u3001\u6bcf\u4e00\u500b\u5b57\u6bcd\u3001\u5bc6\u78bc\u984c\u3001\u9583\u96fb\u984c\uff0c\u4f60\u90fd\u8d70\u904e\u4e86\u3002\u4f60\u5df2\u7d93\u770b\u904e\u6574\u500b\u7db2\u7ad9\uff0c\u4ee5\u53ca\u80cc\u5f8c\u7684\u601d\u8003\u3002\u73fe\u5728\uff0c\u628a\u9019\u4e9b\u8a71\u5e36\u5230\u4e16\u754c\u9762\u524d\u5427\u3002"
+  }
 };
-
-// ---------------------------------------------------------------------------
-let STOPS=PHIL_STOPS, CIPHER=PHIL_CIPHER;
-let track="philosophy";
-let pkey="", player="", lang="en", base=EN, t=UI.en;
+let STOPS = PHIL_CORE.concat(EXPLORE_STOPS), CIPHER = PHIL_CIPHER;
+let track = "philosophy";
+let pkey="", player="", lang="en", t=UI.en;
 let solved=[], hintUsed={}, skipped={}, solvedMsg={}, cipherSolved=false, cipherHintUsed=false;
 let lightningBest=0, startTime=null, finishTime=null;
-let inLightning=false, lqOrder=[], lqIdx=0, lqScore=0, lqLocked=false;
+let lrOrder=[], lqIdx=0, lqScore=0, lqLocked=false, lrTimer=null;
+const LR_SECONDS=12;
 
-// robust: keep only alphanumerics + CJK; strip spaces, apostrophes, hyphens, all punctuation
 function norm(s){ return (s||"").toLowerCase().replace(/[^0-9a-z\u4e00-\u9fff]/g,""); }
 function stopLang(i){ return track==='canon' ? CANON_MIX[i] : lang; }
 function S(i){ return STOPS[i][stopLang(i)]; }
-function stopBase(i){ return stopLang(i)==='zh' ? ZH : EN; }
+function stopBase(i){ return STOPS[i].enOnly ? EN : (stopLang(i)==='zh' ? ZH : EN); }
 function rand(arr){ return arr[(Math.random()*arr.length)|0]; }
+function allSolved(){ return solved.length >= STOPS.length; }
+function curIdx(){ return solved.length; }
 
 async function loadProgress(){
   try {
@@ -569,12 +682,6 @@ async function saveProgress(){
       solved,hintUsed,skipped,solvedMsg,cipherSolved,cipherHintUsed,lightningBest,startTime,finishTime
     }));
   } catch(e){}
-}
-function score(){
-  let s=0; for(const i of solved) s += (skipped[i]?0:(hintUsed[i]?1:3));
-  if (cipherSolved) s += (cipherHintUsed?2:5);
-  s += lightningBest;
-  return s;
 }
 async function pushLeaderboard(){
   try {
@@ -597,35 +704,29 @@ async function fetchLeaderboard(){
   } catch(e){ return []; }
 }
 
-function allSolved(){ return solved.length>=STOPS.length; }
-function curIdx(){ return solved.length; }
+function score(){ let s=0; for(const i of solved){ if(skipped[i]) s+=0; else if(hintUsed[i]) s+=1; else s+=3; } if(cipherSolved) s+=cipherHintUsed?2:5; s+=lightningBest; return s; }
 function renderScorebar(){ document.getElementById("scoreNum").textContent=score(); document.getElementById("whoami").textContent=player; }
 function renderRail(){
-  const rail=document.getElementById("rail"); rail.innerHTML="";
-  const cur=curIdx();
-  for(let i=0;i<STOPS.length;i++){ const p=document.createElement("div");
-    let cls="pip"; if(i<solved.length) cls += skipped[i]?" skip":" done"; else if(i===cur) cls+=" current";
-    p.className=cls; rail.appendChild(p); }
-  const cp=document.createElement("div"); cp.className="pip"+(cipherSolved?" done":(allSolved()?" current":""));
-  cp.style.flex="0 0 24px"; rail.appendChild(cp);
-  const lbl=document.getElementById("progLabel");
-  lbl.textContent = cipherSolved ? t.railDone : (allSolved()? t.railAll : t.railMid(cur+1, STOPS.length, solved.length));
+  let h="";
+  for(let i=0;i<STOPS.length;i++){ let cls="pip"; if(solved.includes(i)) cls+= skipped[i]?" skip":" done"; else if(i===curIdx()) cls+=" current"; h+=`<div class="${cls}"></div>`; }
+  h+=`<div class="pip${cipherSolved?' done':(allSolved()?' current':'')}" style="flex:0 0 24px;"></div>`;
+  document.getElementById("rail").innerHTML=h;
+  document.getElementById("progLabel").textContent = allSolved()? t.railDone : t.railMid(solved.length, STOPS.length);
 }
-function collectedLetters(){ return STOPS.map((s,i)=> solved.includes(i)? s.letter : null); }
+function collectedLetters(){ const out=[]; STOPS.forEach((s,i)=>{ if(s.letter) out.push(solved.includes(i)? s.letter : null); }); return out; }
 
 function renderStops(){
-  const c=document.getElementById("stops");
-  if (inLightning){ renderLightning(c); return; }
-  let html="";
+  const c=document.getElementById("stops"); let html="";
   for(let i=0;i<solved.length;i++) html+=solvedCardHTML(i);
   if(!allSolved()){
-    const i=curIdx(); const s=S(i);
+    const i=curIdx(), s=S(i);
     const worth = hintUsed[i] ? t.hintUsed : t.pts(3);
+    const eyebrow = STOPS[i].explore ? `<div class="explore-eyebrow">${t.exploreEyebrow}</div>` : '';
     html+=`
     <div class="card" id="card-${i}">
+      ${eyebrow}
       <div class="stop-num"><span>${t.stopOf(i+1,STOPS.length)}</span><span class="worth">${worth}</span></div>
-      <div class="stop-title display">${s.title}</div>
-      <div class="stop-where">${s.where} &nbsp;·&nbsp; <a href="${stopBase(i)}${s.path}" target="_blank" rel="noopener">${t.openPage}</a></div>
+      <div class="stop-where">${s.where} &nbsp;\u00b7&nbsp; <a href="${stopBase(i)}${s.path}" target="_blank" rel="noopener">${t.openPage}</a></div>
       <div class="clue">${s.clue}</div>
       <div class="hint-row">
         <button class="hint-toggle" onclick="useHint(${i})">${hintUsed[i]?t.hintShown:t.needHint}</button>
@@ -638,9 +739,7 @@ function renderStops(){
       <div class="feedback" id="fb-${i}"></div>
       <div class="skip-row"><button class="skip-btn" onclick="skipStop(${i})">${t.skip}</button></div>
     </div>`;
-  } else {
-    html+=cipherCardHTML();
-  }
+  } else { html+=cipherCardHTML(); }
   c.innerHTML=html;
   if(!allSolved()){ const inp=document.getElementById("ans-"+curIdx()); if(inp) inp.focus(); }
   else if(!cipherSolved){ const ci=document.getElementById("cipher-ans"); if(ci) ci.focus(); }
@@ -648,67 +747,66 @@ function renderStops(){
 
 function solvedCardHTML(i){
   const s=S(i);
-  if (skipped[i]){
-    return `
-    <div class="card solved-card skipped" id="solved-${i}">
-      <div class="stop-num"><span>${t.stopOf(i+1,STOPS.length)} · ${t.skippedTag}</span><span class="worth">${t.zeroPts} ${t.letterEarned(STOPS[i].letter)}</span></div>
+  const tag = STOPS[i].letter ? t.letterEarned(STOPS[i].letter) : t.exploreTag;
+  if(skipped[i]){
+    return `<div class="card solved-card skipped" id="solved-${i}">
+      <div class="stop-num"><span>${t.stopOf(i+1,STOPS.length)} \u00b7 ${t.skippedTag}</span><span class="worth">${t.zeroPts} ${tag}</span></div>
       <div class="stop-title display">${s.title}</div>
       <div class="skip-flag">${t.answerWas(s.reveal)}</div>
       <div class="takeaway"><div class="t-lbl">${t.whyMatters}</div><div class="t-body">${STOPS[i].takeaway}</div></div>
     </div>`;
   }
   const pts=hintUsed[i]?1:3;
-  return `
-    <div class="card solved-card" id="solved-${i}">
-      <div class="stop-num"><span>${t.stopOf(i+1,STOPS.length)} · ${t.solved} ✓</span><span class="worth">+${pts} ${t.letterEarned(STOPS[i].letter)}</span></div>
+  return `<div class="card solved-card" id="solved-${i}">
+      <div class="stop-num"><span>${t.stopOf(i+1,STOPS.length)} \u00b7 ${t.solved} \u2713</span><span class="worth">+${pts} ${tag}</span></div>
       <div class="stop-title display">${s.title}</div>
-      <div class="goodjob">✨ ${solvedMsg[i]||''}</div>
+      <div class="goodjob">\u2728 ${solvedMsg[i]||''}</div>
       <div class="takeaway"><div class="t-lbl">${t.whyMatters}</div><div class="t-body">${STOPS[i].takeaway}</div></div>
     </div>`;
 }
 
 function cipherCardHTML(){
-  const cc=CIPHER[lang];
-  const chips=collectedLetters().map(l=>`<div class="chip">${l||''}</div>`).join("");
+  const C=CIPHER[lang];
   if(cipherSolved){
-    return `<div class="cipher-card">
-      <div class="stop-num" style="color:var(--gold-soft);"><span>${t.cipherSolved} ✓</span><span class="worth" style="color:#b9a878;">+${cipherHintUsed?2:5}</span></div>
-      <div class="stop-title display">${cc.title}</div><div class="collected">${chips}</div><div class="clue">${cc.win}</div></div>`;
+    return `<div class="done-banner"><h2 class="display">${C.title}</h2><p>${C.win}</p></div>
+    <div class="card"><div class="goodjob">\u2726 ${t.doneTitle}</div><div class="takeaway"><div class="t-body">${t.doneBody}</div></div></div>`;
   }
-  return `<div class="cipher-card">
-    <div class="stop-num" style="color:var(--gold-soft);"><span>${t.finalCipher}</span><span class="worth" style="color:#b9a878;">${cipherHintUsed?'2 / 5':'5'}</span></div>
-    <div class="stop-title display">${t.finalCipher}</div><div class="collected">${chips}</div><div class="clue">${cc.prompt}</div>
+  const chips=collectedLetters().map(l=>`<div class="chip">${l||'?'}</div>`).join("");
+  return `<div class="cipher-card" id="cipher">
+    <div class="stop-num" style="color:var(--gold-soft);"><span>\u2726 \u2726 \u2726</span></div>
+    <div class="stop-title display">${t.finalCipher}</div>
+    <div class="clue">${C.prompt}</div>
+    <div class="collected">${chips}</div>
     <div class="hint-row">
-      <button class="hint-toggle" style="color:#b9a878;" onclick="useCipherHint()">${cipherHintUsed?t.hintShown:t.cipherNeedHint}</button>
-      <div class="hint-text ${cipherHintUsed?'show':''}" id="cipher-hint" style="background:rgba(201,180,135,.14); color:#d8cfbf;">${cc.hint}</div>
+      <button class="hint-toggle" style="color:var(--gold-soft);" onclick="useCipherHint()">${cipherHintUsed?t.cipherHintShown:t.cipherNeedHint}</button>
+      <div class="hint-text ${cipherHintUsed?'show':''}" id="cipher-hint" style="color:#e8e3d8;background:rgba(255,255,255,.06);">${C.hint}</div>
     </div>
     <div class="answer-row">
       <input type="text" id="cipher-ans" placeholder="${t.cipherPlaceholder}" autocomplete="off" onkeydown="if(event.key==='Enter')checkCipher()">
-      <button onclick="checkCipher()" style="background:var(--gold);">${t.solveBtn}</button>
+      <button onclick="checkCipher()">${t.solveBtn}</button>
     </div>
-    <div class="feedback" id="cipher-fb" style="color:var(--gold);"></div></div>`;
+    <div class="feedback" id="cipher-fb"></div>
+  </div>`;
 }
 
-function useHint(i){
-  if(!hintUsed[i]){ hintUsed[i]=true; saveProgress(); renderScorebar(); }
-  const h=document.getElementById("hint-"+i); if(h) h.classList.add("show");
-  if(event&&event.target) event.target.textContent=t.hintShown;
-  const card=document.getElementById("card-"+i); if(card){ const w=card.querySelector(".worth"); if(w) w.textContent=t.hintUsed; }
-}
+function useHint(i){ if(hintUsed[i]) return; hintUsed[i]=true; saveProgress(); pushLeaderboard(); renderScorebar(); renderStops(); const inp=document.getElementById("ans-"+i); if(inp) inp.focus(); }
+function useCipherHint(){ if(cipherHintUsed) return; cipherHintUsed=true; saveProgress(); pushLeaderboard(); renderScorebar(); renderStops(); }
+
 async function checkAnswer(i){
   const inp=document.getElementById("ans-"+i), fb=document.getElementById("fb-"+i);
   const val=norm(inp.value);
   if(!val){ fb.className="feedback wrong"; fb.textContent=t.typeFirst; return; }
   if(S(i).accept.map(norm).includes(val)){
     solvedMsg[i]=rand(GOODJOB[lang]);
+    fb.className="feedback right"; fb.textContent = STOPS[i].letter ? t.correct(STOPS[i].letter) : t.correctNoLetter;
     if(!solved.includes(i)) solved.push(i);
     if(allSolved() && !finishTime) finishTime=Date.now();
     toast(solvedMsg[i]); celebrate(1);
     await saveProgress(); await pushLeaderboard();
-    setTimeout(()=>{ renderScorebar(); renderRail(); renderStops();
-      const el=document.getElementById("solved-"+i); if(el) el.scrollIntoView({behavior:'smooth',block:'center'}); }, 650);
+    setTimeout(()=>{ renderScorebar(); renderRail(); renderStops(); const el=document.getElementById("solved-"+i); if(el) el.scrollIntoView({behavior:'smooth',block:'center'}); }, 650);
   } else { fb.className="feedback wrong"; fb.textContent=t.wrong; }
 }
+
 async function skipStop(i){
   skipped[i]=true; if(!solved.includes(i)) solved.push(i);
   if(allSolved() && !finishTime) finishTime=Date.now();
@@ -716,142 +814,132 @@ async function skipStop(i){
   renderScorebar(); renderRail(); renderStops();
   const el=document.getElementById("solved-"+i); if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
 }
-function useCipherHint(){
-  if(!cipherHintUsed){ cipherHintUsed=true; saveProgress(); renderScorebar(); }
-  const h=document.getElementById("cipher-hint"); if(h) h.classList.add("show");
-  if(event&&event.target) event.target.textContent=t.hintShown;
-}
+
 async function checkCipher(){
   const inp=document.getElementById("cipher-ans"), fb=document.getElementById("cipher-fb");
   const val=norm(inp.value);
-  if(!val){ fb.textContent=t.typeFirst; return; }
+  if(!val){ fb.className="feedback wrong"; fb.textContent=t.typeFirst; return; }
   if(CIPHER.accept.map(norm).includes(val)){
     cipherSolved=true; if(!finishTime) finishTime=Date.now();
-    toast(lang==='zh'?'破解了！':'Cracked it!'); celebrate(1.4);
+    toast(rand(GOODJOB[lang])); celebrate(1.5);
     await saveProgress(); await pushLeaderboard();
-    renderScorebar(); renderRail(); renderStops(); window.scrollTo({top:0,behavior:'smooth'});
-  } else fb.textContent=t.cipherWrong;
+    setTimeout(()=>{ renderScorebar(); renderRail(); renderStops(); renderBoard(); window.scrollTo({top:0,behavior:'smooth'}); }, 700);
+  } else { fb.className="feedback wrong"; fb.textContent=t.cipherWrong; }
 }
 
-// ---- FAQ Lightning Round ----
-function launchLightning(){
-  inLightning=true; lqLocked=false; lqIdx=0; lqScore=0;
-  lqOrder=LIGHTNING[lang].q.map((_,k)=>k);
-  for(let k=lqOrder.length-1;k>0;k--){ const j=(Math.random()*(k+1))|0; [lqOrder[k],lqOrder[j]]=[lqOrder[j],lqOrder[k]]; }
-  document.getElementById("lrBtn").style.display="none";
-  renderStops(); window.scrollTo({top:0,behavior:'smooth'});
+// ---- FAQ Lightning Round: timed popup ----
+function openLightning(){
+  const L=LIGHTNING[lang];
+  lrOrder=L.q.map((_,k)=>k);
+  for(let k=lrOrder.length-1;k>0;k--){ const j=(Math.random()*(k+1))|0; const tmp=lrOrder[k]; lrOrder[k]=lrOrder[j]; lrOrder[j]=tmp; }
+  lqIdx=0; lqScore=0; lqLocked=false;
+  document.getElementById("lr-modal").style.display="flex";
+  renderLR();
 }
-function exitLightning(){
-  inLightning=false; document.getElementById("lrBtn").style.display="";
-  renderRail(); renderStops();
+function closeLightning(){ clearLrTimer(); document.getElementById("lr-modal").style.display="none"; }
+function clearLrTimer(){ if(lrTimer){ clearInterval(lrTimer); lrTimer=null; } }
+function startLrTimer(){
+  clearLrTimer();
+  const fill=document.getElementById("lr-fill"), total=LR_SECONDS*1000, t0=Date.now();
+  lrTimer=setInterval(()=>{ const rem=total-(Date.now()-t0); const pct=Math.max(0,(rem/total)*100); if(fill){ fill.style.width=pct+"%"; if(pct<30) fill.classList.add("warn"); } if(rem<=0){ clearLrTimer(); lrTimeout(); } }, 80);
 }
-function renderLightning(c){
-  const L=LIGHTNING[lang], n=lqOrder.length;
+function renderLR(){
+  const L=LIGHTNING[lang], n=lrOrder.length, c=document.getElementById("lr-content");
   if(lqIdx>=n){
+    clearLrTimer();
     if(lqScore>lightningBest){ lightningBest=lqScore; saveProgress(); pushLeaderboard(); renderScorebar(); }
-    c.innerHTML=`<div class="lr-card lr-done">
+    c.innerHTML=`<div class="lr-done">
       <div class="lr-head"><span>${L.launch}</span><span>${L.best(lightningBest)}</span></div>
       <div class="stop-title display" style="margin:8px 0 2px;">${L.doneTitle}</div>
       <div class="score">${lqScore}/${n}</div>
       <div class="lr-intro">${L.doneSub(lqScore,n)}</div>
       <div class="lr-actions">
-        <button class="answer-row" style="background:var(--gold);color:#fff;border:none;border-radius:9px;padding:11px 20px;font-weight:600;font-family:inherit;cursor:pointer;" onclick="launchLightning()">${L.replay}</button>
-        <button class="ghost" onclick="exitLightning()">${L.back}</button>
+        <button onclick="openLightning()" style="background:var(--gold-grad);color:#fff;border:none;border-radius:9px;padding:11px 20px;font-weight:600;font-family:inherit;cursor:pointer;">${L.replay}</button>
+        <button class="ghost" onclick="closeLightning()">${L.back}</button>
       </div></div>`;
     return;
   }
-  const qi=lqOrder[lqIdx], q=L.q[qi];
-  const opts=L.cats.map((cat,idx)=>`<button class="lr-opt" id="lr-opt-${idx}" onclick="lightningAnswer(${idx},${q.a})">${cat}</button>`).join("");
-  c.innerHTML=`<div class="lr-card">
-    <div class="lr-head"><span>${L.qof(lqIdx+1,n)}</span><span>${L.round}: ${lqScore}</span></div>
+  const qi=lrOrder[lqIdx], q=L.q[qi];
+  const opts=L.cats.map((cat,idx)=>`<button class="lr-opt" id="lr-opt-${idx}" onclick="lrAnswer(${idx},${q.a})">${cat}</button>`).join("");
+  c.innerHTML=`
+    <div class="lr-head"><span>${L.launch}</span><span>${L.best(lightningBest)}</span></div>
+    <div class="lr-timerbar"><div class="lr-timerfill" id="lr-fill"></div></div>
+    <div class="lr-meta">${L.qof(lqIdx+1,n)} \u00b7 ${L.round}: ${lqScore}</div>
     ${lqIdx===0?`<div class="lr-intro">${L.intro}</div>`:''}
     <div class="lr-q">${q.text}</div>
     <div class="lr-grid">${opts}</div>
-    <div class="lr-fb" id="lr-fb"></div>
-    <div class="skip-row" style="margin-top:12px;"><button class="skip-btn" onclick="exitLightning()">${L.back}</button></div>
-  </div>`;
+    <div class="lr-fb" id="lr-fb"></div>`;
+  lqLocked=false; startLrTimer();
 }
-function lightningAnswer(picked, correct){
+function lrAnswer(picked,correct){
+  if(lqLocked) return; lqLocked=true; clearLrTimer();
+  const L=LIGHTNING[lang], fb=document.getElementById("lr-fb");
+  document.querySelectorAll("#lr-content .lr-opt").forEach(b=>b.disabled=true);
+  const cb=document.getElementById("lr-opt-"+correct);
+  if(picked===correct){ if(cb)cb.classList.add("correct"); fb.className="lr-fb right"; fb.textContent=L.correct; lqScore++; toast(rand(GOODJOB[lang])); celebrate(0.6); }
+  else { const pb=document.getElementById("lr-opt-"+picked); if(pb)pb.classList.add("wrong"); if(cb)cb.classList.add("correct"); fb.className="lr-fb wrong"; fb.textContent=L.wrong(L.cats[correct]); }
+  setTimeout(()=>{ lqIdx++; renderLR(); }, 1100);
+}
+function lrTimeout(){
   if(lqLocked) return; lqLocked=true;
   const L=LIGHTNING[lang], fb=document.getElementById("lr-fb");
-  document.querySelectorAll(".lr-opt").forEach(b=>b.disabled=true);
-  const correctBtn=document.getElementById("lr-opt-"+correct);
-  if(picked===correct){
-    correctBtn.classList.add("correct"); fb.className="lr-fb right"; fb.textContent=L.correct;
-    lqScore++; toast(rand(GOODJOB[lang])); celebrate(0.6);
-  } else {
-    document.getElementById("lr-opt-"+picked).classList.add("wrong");
-    correctBtn.classList.add("correct"); fb.className="lr-fb wrong"; fb.textContent=L.wrong(L.cats[correct]);
-  }
-  setTimeout(()=>{ lqIdx++; lqLocked=false; renderStops(); }, 1050);
+  document.querySelectorAll("#lr-content .lr-opt").forEach(b=>b.disabled=true);
+  const qi=lrOrder[lqIdx], correct=L.q[qi].a, cb=document.getElementById("lr-opt-"+correct);
+  if(cb) cb.classList.add("correct");
+  if(fb){ fb.className="lr-fb wrong"; fb.textContent=L.timeUp+" "+L.wrong(L.cats[correct]); }
+  setTimeout(()=>{ lqIdx++; renderLR(); }, 1100);
 }
 
-// ---- leaderboard ----
-async function renderBoard(target){
+async function renderBoard(){
   const rows=await fetchLeaderboard();
-  rows.sort((a,b)=> b.score!==a.score ? b.score-a.score : (a.finishTime||Infinity)-(b.finishTime||Infinity));
-  const el=target||document.getElementById("lbRows");
+  rows.sort((a,b)=> (b.score||0)!==(a.score||0) ? (b.score||0)-(a.score||0) : (a.finishTime||Infinity)-(b.finishTime||Infinity));
+  const el=document.getElementById("lbRows");
   if(!rows.length){ el.innerHTML=`<div class="lb-empty">No one's on the board yet. Be the first.</div>`; return; }
   el.innerHTML=rows.map((r,idx)=>{
-    const me=r.name===player;
-    let meta=(r.solved||0)+"/10"; if(r.lightning) meta+=" · ⚡"+r.lightning; if(r.cipher) meta+=" · ✦";
-    const flag=r.lang==='zh'?'中文':'EN';
-    return `<div class="lb-row"><div class="lb-rank">${idx+1}</div>
-      <div class="lb-name ${me?'me':''}">${escapeHtml(r.name)}<span class="flag">${flag}</span>${me?'<span class="you-tag">YOU</span>':''}</div>
-      <div class="lb-meta">${meta}</div><div class="lb-score">${r.score}</div></div>`;
+    const me = r.name===player ? " me":"";
+    const you = r.name===player ? `<span class="you-tag">you</span>`:"";
+    const flag = r.lang==='zh' ? `<span class="flag">\u4e2d\u6587</span>`:"";
+    const meta = `${r.solved||0}/15${r.lightning?` \u00b7 \u26a1${r.lightning}`:''}${r.cipher?' \u00b7 \u2726':''}`;
+    return `<div class="lb-row"><div class="lb-rank">${idx+1}</div><div class="lb-name${me}">${escapeHtml(r.name)}${you}${flag}</div><div class="lb-meta">${meta}</div><div class="lb-score">${r.score||0}</div></div>`;
   }).join("");
 }
 function escapeHtml(s){ return (s||"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
-// ---- fireworks ----
 const fxCanvas=document.getElementById("fx"), fxCtx=fxCanvas.getContext("2d");
-let fxParticles=[], fxRAF=null;
+let fxParticles=[], fxRunning=false;
 function fxResize(){ fxCanvas.width=innerWidth; fxCanvas.height=innerHeight; }
-addEventListener("resize", fxResize); fxResize();
-const FX_COLORS=["#9a7b3f","#c9b487","#e4c97a","#3f7a52","#fffdf8","#d8a13f"];
-function fxBurst(cx,cy,count){
-  for(let i=0;i<count;i++){ const a=Math.random()*Math.PI*2, sp=2+Math.random()*5;
-    fxParticles.push({x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-2,life:1,color:FX_COLORS[(Math.random()*FX_COLORS.length)|0],size:2+Math.random()*2}); }
-}
-function fxTick(){
-  fxCtx.clearRect(0,0,fxCanvas.width,fxCanvas.height); let alive=false;
-  for(const p of fxParticles){ if(p.life<=0) continue; alive=true;
-    p.x+=p.vx; p.y+=p.vy; p.vy+=0.08; p.vx*=0.99; p.life-=0.018;
-    fxCtx.globalAlpha=Math.max(p.life,0); fxCtx.fillStyle=p.color;
+fxResize(); addEventListener("resize",fxResize);
+const FX_COLORS=["#9a7b3f","#c9b487","#3f7a52","#fff7e6","#e4c97a"];
+function celebrate(scale){ scale=scale||1; const cx=innerWidth/2, cy=innerHeight*0.34, n=Math.round(46*scale);
+  for(let i=0;i<n;i++){ const a=(Math.PI*2*i)/n + Math.random()*0.4, sp=(2.5+Math.random()*4.5)*scale;
+    fxParticles.push({x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-1.5,life:1,color:FX_COLORS[(Math.random()*FX_COLORS.length)|0],size:2+Math.random()*3}); }
+  if(!fxRunning) fxLoop(); }
+function fxLoop(){ fxRunning=true; fxCtx.clearRect(0,0,fxCanvas.width,fxCanvas.height);
+  for(let i=fxParticles.length-1;i>=0;i--){ const p=fxParticles[i]; p.vy+=0.12; p.x+=p.vx; p.y+=p.vy; p.life-=0.018;
+    if(p.life<=0){ fxParticles.splice(i,1); continue; } fxCtx.globalAlpha=Math.max(0,p.life); fxCtx.fillStyle=p.color;
     fxCtx.beginPath(); fxCtx.arc(p.x,p.y,p.size,0,Math.PI*2); fxCtx.fill(); }
-  fxCtx.globalAlpha=1;
-  if(alive) fxRAF=requestAnimationFrame(fxTick); else { fxRAF=null; fxParticles=[]; fxCtx.clearRect(0,0,fxCanvas.width,fxCanvas.height); }
-}
-function celebrate(scale){
-  scale=scale||1; const W=fxCanvas.width, H=fxCanvas.height;
-  const shots=scale>=1.3?5:(scale>=1?3:2); let d=0;
-  for(let s=0;s<shots;s++){ setTimeout(()=>{ const cx=W*(0.2+Math.random()*0.6), cy=H*(0.18+Math.random()*0.32);
-    fxBurst(cx,cy, scale>=1?44:26); if(!fxRAF) fxTick(); }, d); d+=170; }
-}
-function toast(msg){ const el=document.getElementById("toast"); el.textContent=msg; el.classList.add("show");
-  clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove("show"),1650); }
+  fxCtx.globalAlpha=1; if(fxParticles.length>0) requestAnimationFrame(fxLoop); else fxRunning=false; }
+let toastTimer=null;
+function toast(msg){ const el=document.getElementById("toast"); el.textContent=msg; el.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove("show"),1300); }
 
-// ---- boot ----
 async function choose(key){
+  if(!PLAYERS[key]) return;
   pkey=key; player=PLAYERS[key].name; lang=PLAYERS[key].lang;
   track = PLAYERS[key].track || "philosophy";
-  STOPS = track==="canon" ? CANON_STOPS : PHIL_STOPS;
+  STOPS = (track==="canon" ? CANON_CORE : PHIL_CORE).concat(EXPLORE_STOPS);
   CIPHER = track==="canon" ? CANON_CIPHER : PHIL_CIPHER;
-  base = lang==='zh' ? ZH : EN; t = UI[lang];
-  document.documentElement.lang = lang==='zh' ? 'zh-Hant' : 'en';
+  t = UI[lang];
+  document.documentElement.lang = (lang==='zh') ? 'zh-Hant' : 'en';
   document.getElementById("lrBtn").textContent = LIGHTNING[lang].launch;
   await loadProgress();
   document.getElementById("gate").style.display="none";
   document.getElementById("game").style.display="block";
   document.getElementById("board").style.display="block";
   renderScorebar(); renderRail(); renderStops();
-  await pushLeaderboard(); await renderBoard();
+  await pushLeaderboard(); renderBoard();
 }
-document.getElementById("viewBoardBtn").addEventListener("click", async ()=>{
-  document.getElementById("gate").style.display="none";
-  document.getElementById("board").style.display="block"; await renderBoard();
-});
-document.getElementById("refreshBtn").addEventListener("click", ()=>renderBoard());
+document.getElementById("viewBoardBtn").addEventListener("click", async ()=>{ const b=document.getElementById("board"); b.style.display="block"; b.scrollIntoView({behavior:'smooth'}); await renderBoard(); });
+document.getElementById("refreshBtn").addEventListener("click", ()=> renderBoard());
 </script>
 </body>
 </html>
